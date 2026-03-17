@@ -498,11 +498,14 @@
   // pointerdown/pointermove/pointerup work on ALL devices
   // Falls back to touch/mouse listeners for older browsers
 
+  var didDrag = false;
+
   function onStart(x) {
     getWidth();
     startX = x;
     moveX = x;
     dragging = true;
+    didDrag = false;
     track.classList.remove('animating');
   }
 
@@ -510,6 +513,7 @@
     if (!dragging) return;
     moveX = x;
     var diff = moveX - startX;
+    if (Math.abs(diff) > 5) didDrag = true;
     var offset = (-current * containerW) + diff;
     track.style.transform = 'translateX(' + offset + 'px)';
   }
@@ -618,31 +622,31 @@
   var overlayTitle = document.getElementById('overlayTitle');
   var overlayBack = document.getElementById('overlayBack');
 
-  // Make each QR frame tappable
-  var qrFrames = document.querySelectorAll('.qr-frame');
-  for (var q = 0; q < qrFrames.length; q++) {
-    (function(idx) {
-      qrFrames[idx].addEventListener('click', function(e) {
-        e.stopPropagation();
-        overlayFrame.src = onePagers[idx].file;
-        overlayTitle.textContent = onePagers[idx].title;
-        overlay.classList.add('visible');
-      });
-    })(q);
+  // Open one-pager overlay
+  function openOnePager(idx) {
+    overlayFrame.src = onePagers[idx].file;
+    overlayTitle.textContent = onePagers[idx].title;
+    overlay.classList.add('visible');
   }
 
-  // Also make "Tap to preview" text tappable
-  var tapCtas = document.querySelectorAll('.slide-cta-tap');
-  for (var t = 0; t < tapCtas.length; t++) {
-    (function(idx) {
-      tapCtas[idx].addEventListener('click', function(e) {
-        e.stopPropagation();
-        overlayFrame.src = onePagers[idx].file;
-        overlayTitle.textContent = onePagers[idx].title;
-        overlay.classList.add('visible');
-      });
-    })(t);
-  }
+  // Use a single click listener on the container - pointer capture
+  // swallows events on children, so we catch clicks at this level
+  // and check if the click target is inside a QR frame or tap CTA.
+  container.addEventListener('click', function(e) {
+    // Only fire on taps, not at the end of a swipe
+    if (didDrag) return;
+
+    var qrFrame = e.target.closest('.qr-frame');
+    var tapCta = e.target.closest('.slide-cta-tap');
+
+    if (qrFrame || tapCta) {
+      var slide = e.target.closest('.slide');
+      if (slide) {
+        var idx = parseInt(slide.getAttribute('data-index'), 10);
+        openOnePager(idx);
+      }
+    }
+  });
 
   // Back button
   overlayBack.addEventListener('click', function() {
