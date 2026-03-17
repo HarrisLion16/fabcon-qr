@@ -1,0 +1,1149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Copilot Agent Governance & Implementation - Centric Consulting</title>
+<style>
+  @page {
+    size: 8.5in 11in;
+    margin: 0;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+    color: #424242;
+    background: #ccc;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  @media print {
+    body { background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .page { page-break-after: always; box-shadow: none; margin: 0; }
+    .page:last-child { page-break-after: auto; }
+  }
+
+  .page {
+    width: 8.5in;
+    height: 11in;
+    margin: 0 auto 20px auto;
+    position: relative;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.25);
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ============================================
+     PAGE 1
+     ============================================ */
+
+  /* Top Bar */
+  .hero-bar {
+    background: #232F3E;
+    height: 0.55in;
+    padding: 0 0.5in;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo-text {
+    font-size: 22px;
+    font-weight: bold;
+    color: #fff;
+    letter-spacing: 3px;
+  }
+
+  .logo-accent { color: #FCB516; }
+
+  .funding-badge {
+    background: #FCB516;
+    color: #232F3E;
+    font-size: 9px;
+    font-weight: bold;
+    padding: 6px 16px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Hero Section */
+  .hero-section {
+    background: linear-gradient(135deg, #412C5D 0%, #232F3E 100%);
+    height: 1.9in;
+    padding: 0.35in 0.5in;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .hero-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: #FCB516;
+  }
+
+  .hero-pretitle {
+    color: #FCB516;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    margin-bottom: 8px;
+  }
+
+  .hero-title {
+    color: #fff;
+    font-size: 30px;
+    font-weight: bold;
+    line-height: 1.15;
+    margin-bottom: 10px;
+  }
+
+  .hero-tagline {
+    color: #ABCAE3;
+    font-size: 13px;
+    font-style: italic;
+    line-height: 1.4;
+  }
+
+  /* Intro Strip */
+  .intro-strip {
+    padding: 0.18in 0.5in;
+    background: #F5F5F5;
+  }
+
+  .intro-strip-text {
+    font-size: 10px;
+    color: #676869;
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  .intro-strip-text strong { color: #424242; }
+
+  /* Approach Section - Light */
+  .approach-section {
+    padding: 0.3in 0.45in 0.25in 0.45in;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .approach-title-row {
+    text-align: center;
+    margin-bottom: 18px;
+  }
+
+  .approach-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #412C5D;
+    padding-bottom: 5px;
+    border-bottom: 3px solid #FCB516;
+    display: inline-block;
+  }
+
+  .approach-subtitle {
+    font-size: 9.5px;
+    color: #676869;
+    text-align: center;
+    margin-top: 6px;
+  }
+
+  /* Step Cards - 3x2 Grid on Light BG */
+  .step-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 14px;
+  }
+
+  .step-card {
+    background: #F5F5F5;
+    border-radius: 10px;
+    padding: 16px 14px 14px 14px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    border-top: 3px solid #FCB516;
+  }
+
+  .step-num {
+    font-size: 9px;
+    font-weight: bold;
+    color: #412C5D;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 8px;
+  }
+
+  .step-icon {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
+  .step-icon.s-gold { background: linear-gradient(135deg, #412C5D, #232F3E); }
+  .step-icon.s-purple { background: linear-gradient(135deg, #412C5D, #232F3E); }
+  .step-icon.s-navy { background: linear-gradient(135deg, #412C5D, #232F3E); }
+  .step-icon.s-blue { background: linear-gradient(135deg, #412C5D, #232F3E); }
+  .step-icon.s-green { background: linear-gradient(135deg, #412C5D, #232F3E); }
+  .step-icon.s-teal { background: linear-gradient(135deg, #412C5D, #232F3E); }
+
+  .step-card-title {
+    font-size: 11px;
+    font-weight: bold;
+    color: #232F3E;
+    margin-bottom: 5px;
+    line-height: 1.3;
+  }
+
+  .step-card-text {
+    font-size: 9.5px;
+    color: #676869;
+    line-height: 1.45;
+  }
+
+  /* Gold Divider */
+  .gold-divider {
+    height: 4px;
+    background: linear-gradient(90deg, #FCB516 0%, #FCB516 40%, #F5F5F5 100%);
+  }
+
+  /* Expected Outcomes - Dark Section */
+  .outcomes-section {
+    background: linear-gradient(160deg, #1a2230 0%, #232F3E 40%, #2a1f3d 100%);
+    position: relative;
+    overflow: hidden;
+    height: 2.6in;
+  }
+
+  .outcomes-section::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -60px;
+    width: 250px; height: 250px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(252,181,22,0.07) 0%, transparent 70%);
+  }
+
+  .outcomes-inner {
+    position: relative;
+    z-index: 1;
+    padding: 0.25in 0.45in;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .outcomes-top-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 16px;
+  }
+
+  .outcomes-badge {
+    background: #FCB516;
+    color: #232F3E;
+    font-size: 9px;
+    font-weight: bold;
+    padding: 5px 16px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+
+  .outcomes-title {
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+  }
+
+  .outcomes-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 20px;
+  }
+
+  .outcome-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .outcome-num {
+    flex: 0 0 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: bold;
+    margin-top: 1px;
+  }
+
+  .outcome-num.o-gold { background: rgba(252,181,22,0.15); border: 2px solid #FCB516; color: #FCB516; }
+  .outcome-num.o-purple { background: rgba(121,108,141,0.2); border: 2px solid #796C8D; color: #796C8D; }
+  .outcome-num.o-blue { background: rgba(171,202,227,0.15); border: 2px solid #ABCAE3; color: #ABCAE3; }
+
+  .outcome-text {
+    font-size: 9px;
+    color: #ABCAE3;
+    line-height: 1.4;
+  }
+
+  .outcome-text strong {
+    color: #fff;
+  }
+
+  /* Stats Row */
+  .stats-row {
+    padding: 0.25in 0.5in 0.15in 0.5in;
+    background: #F5F5F5;
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+  }
+
+  .stat-card {
+    background: #fff;
+    border-radius: 10px 10px 0 0;
+    padding: 16px 20px;
+    text-align: center;
+    flex: 1;
+    border-top: 3px solid #FCB516;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .stat-number {
+    font-size: 24px;
+    font-weight: bold;
+    color: #412C5D;
+    line-height: 1.1;
+  }
+
+  .stat-label {
+    font-size: 9px;
+    font-weight: bold;
+    color: #232F3E;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-bottom: 2px;
+  }
+
+  .stat-source {
+    font-size: 8px;
+    color: #676869;
+    line-height: 1.3;
+  }
+
+  /* Page 1 Footer */
+  .page-footer {
+    background: #232F3E;
+    height: 0.7in;
+    padding: 0 0.5in;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+  }
+
+  .page-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: #FCB516;
+  }
+
+  .footer-col-left {
+    flex: 1;
+  }
+
+  .footer-url {
+    color: #FCB516;
+    font-size: 10px;
+    font-weight: bold;
+  }
+
+  .footer-ms {
+    color: #ABCAE3;
+    font-size: 8px;
+    margin-top: 3px;
+  }
+
+  .footer-col-center {
+    flex: 0 0 auto;
+    text-align: center;
+  }
+
+  .footer-logo-p1 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    letter-spacing: 3px;
+  }
+
+  .footer-logo-p1 .logo-accent { color: #FCB516; }
+
+  .footer-col-right {
+    flex: 1;
+    text-align: right;
+  }
+
+  .footer-tagline {
+    color: rgba(255,255,255,0.5);
+    font-size: 9px;
+    font-style: italic;
+  }
+
+  /* ============================================
+     PAGE 2
+     ============================================ */
+
+  .page2-header {
+    background: linear-gradient(135deg, #412C5D 0%, #232F3E 100%);
+    height: 0.9in;
+    padding: 0.15in 0.5in;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+  }
+
+  .page2-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: #FCB516;
+  }
+
+  .page2-header-left {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .page2-header-title {
+    color: #fff;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+  }
+
+  .page2-header-sub {
+    color: #ABCAE3;
+    font-size: 11px;
+    font-style: italic;
+  }
+
+  .page2-logo {
+    font-size: 22px;
+    font-weight: bold;
+    color: #fff;
+    letter-spacing: 3px;
+  }
+
+  /* Expertise - Timeline Layout */
+  .expertise-section {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0.25in 0.5in;
+  }
+
+  .expertise-title-row {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .expertise-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #412C5D;
+    padding-bottom: 5px;
+    border-bottom: 3px solid #FCB516;
+    display: inline-block;
+  }
+
+  .expertise-subtitle {
+    font-size: 9.5px;
+    color: #676869;
+    margin-top: 6px;
+  }
+
+  /* Timeline Container */
+  .timeline {
+    position: relative;
+    padding: 0 0;
+  }
+
+  /* Center spine */
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, #FCB516 0%, #412C5D 50%, #232F3E 100%);
+    transform: translateX(-50%);
+  }
+
+  .tl-row {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+    position: relative;
+  }
+
+  .tl-row:last-child {
+    margin-bottom: 0;
+  }
+
+  /* Center dot on spine */
+  .tl-dot {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #412C5D, #232F3E);
+    border: 3px solid #FCB516;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2;
+  }
+
+  .tl-dot-num {
+    font-size: 12px;
+    font-weight: bold;
+    color: #FCB516;
+  }
+
+  /* Left panel (odd items) */
+  .tl-left {
+    width: calc(50% - 28px);
+    text-align: right;
+    padding-right: 16px;
+  }
+
+  .tl-right {
+    width: calc(50% - 28px);
+    margin-left: auto;
+    text-align: left;
+    padding-left: 16px;
+  }
+
+  .tl-card {
+    background: #F5F5F5;
+    border-radius: 8px;
+    padding: 12px 14px;
+    position: relative;
+  }
+
+  .tl-left .tl-card {
+    border-right: 3px solid #FCB516;
+  }
+
+  .tl-right .tl-card {
+    border-left: 3px solid #FCB516;
+  }
+
+  .tl-card-title {
+    font-size: 11px;
+    font-weight: bold;
+    color: #232F3E;
+    margin-bottom: 4px;
+  }
+
+  .tl-card-text {
+    font-size: 9px;
+    color: #676869;
+    line-height: 1.45;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .about-label {
+    font-size: 13px;
+    font-weight: bold;
+    color: #412C5D;
+    margin-bottom: 6px;
+  }
+
+  .about-text {
+    font-size: 9.5px;
+    color: #676869;
+    line-height: 1.55;
+  }
+
+  .about-text strong { color: #424242; }
+
+  /* At-A-Glance with Map */
+  .at-a-glance {
+    position: relative;
+    border-radius: 6px;
+    padding: 0.2in 0.1in;
+    min-height: 1.8in;
+    overflow: hidden;
+  }
+
+  .aag-title {
+    font-size: 9px;
+    font-weight: bold;
+    color: #412C5D;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .map-bg {
+    position: absolute;
+    top: 0.3in;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('slide28-img0.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 1;
+    filter: contrast(2.5) brightness(0.85);
+  }
+
+  .aag-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .aag-grid-row2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    position: relative;
+    z-index: 1;
+    margin-top: 6px;
+  }
+
+  .aag-stat {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .aag-circle {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 4px auto;
+  }
+
+  .aag-circle.navy-bg { background: #232F3E; }
+  .aag-circle.purple-bg { background: #412C5D; }
+
+  .aag-number {
+    font-size: 15px;
+    font-weight: bold;
+    color: #FCB516;
+    line-height: 1.1;
+  }
+
+  .aag-sublabel {
+    font-size: 6px;
+    color: #fff;
+    text-transform: uppercase;
+    line-height: 1.2;
+    margin-top: 2px;
+  }
+
+  /* About Section */
+  .about-section {
+    background: #F5F5F5;
+    padding: 0.15in 0.5in 0.12in 0.5in;
+  }
+
+  /* Contact Footer */
+  .contact-footer {
+  }
+
+  .contact-gold-line {
+    height: 4px;
+    background: #FCB516;
+  }
+
+  .contact-bar {
+    background: #232F3E;
+    padding: 0.15in 0.4in;
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+
+  .contact-col-left {
+    flex: 1;
+  }
+
+  .contact-col-center {
+    flex: 0 0 auto;
+    text-align: center;
+    padding: 0 0.3in;
+    border-left: 1px solid rgba(255,255,255,0.15);
+    border-right: 1px solid rgba(255,255,255,0.15);
+  }
+
+  .contact-col-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .contact-name {
+    font-size: 10pt;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 1px;
+  }
+
+  .contact-title-text {
+    font-size: 8.5pt;
+    color: #FCB516;
+    font-style: italic;
+    margin-bottom: 5px;
+  }
+
+  .contact-detail {
+    font-size: 8pt;
+    color: #fff;
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .contact-icon {
+    width: 14px;
+    height: 14px;
+    border: 1.5px solid #FCB516;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .contact-icon svg {
+    width: 8px;
+    height: 8px;
+  }
+
+  .contact-url {
+    font-size: 8pt;
+    color: #FCB516;
+    margin-top: 4px;
+  }
+
+  .footer-logo {
+    font-size: 18pt;
+    font-weight: bold;
+    color: #fff;
+    letter-spacing: 3px;
+    margin-bottom: 4px;
+  }
+
+  .footer-logo .paren { color: #FCB516; }
+
+  .ms-badge {
+    font-size: 8pt;
+    color: rgba(255,255,255,0.7);
+    text-align: center;
+  }
+
+  .accolades {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-end;
+  }
+
+  .accolade-item {
+    font-size: 7.5pt;
+    color: #FCB516;
+    font-weight: bold;
+    background: rgba(252,181,22,0.1);
+    border: 1px solid rgba(252,181,22,0.3);
+    padding: 2px 10px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ==================== PAGE 1 ==================== -->
+<div class="page">
+
+  <!-- Top Bar -->
+  <div class="hero-bar">
+    <div class="logo-text"><span class="logo-accent">((</span>CENTRIC<span class="logo-accent">))</span></div>
+    <div class="funding-badge">Microsoft Managed Partner</div>
+  </div>
+
+  <!-- Hero -->
+  <div class="hero-section">
+    <div class="hero-pretitle">Microsoft Cloud Platforms Practice</div>
+    <div class="hero-title">Copilot Agent Governance<br>& Implementation</div>
+    <div class="hero-tagline">"From agent creation to action - governed end-to-end.<br>Accelerate business transformation by automating processes with Copilot."</div>
+  </div>
+
+  <!-- Intro Strip -->
+  <div class="intro-strip">
+    <div class="intro-strip-text">
+      We connect <strong>Copilot innovation</strong> with secure collaboration, information protection, and governance from day one - ensuring productivity gains are built on a <strong>strong security and compliance foundation</strong>.
+    </div>
+  </div>
+
+  <!-- Approach Section - Light -->
+  <div class="approach-section">
+    <div class="approach-title-row">
+      <div class="approach-title">Our Get Ready for Copilot Approach</div>
+      <div class="approach-subtitle">We partner with you to build a tailored Copilot enablement and deployment plan that fits your organization.</div>
+    </div>
+    <div class="step-grid">
+      <div class="step-card">
+        <div class="step-num">Step 1</div>
+        <div class="step-icon s-gold">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FCB516" stroke-width="1.5"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <div class="step-card-title">Environment Review</div>
+        <div class="step-card-text">Review your environment and configuration to enable Copilot solution deployment</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">Step 2</div>
+        <div class="step-icon s-purple">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FCB516" stroke-width="1.5"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="step-card-title">Agent Governance</div>
+        <div class="step-card-text">Configure agent environment and governance controls for secure operations</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">Step 3</div>
+        <div class="step-icon s-navy">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FCB516" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+        </div>
+        <div class="step-card-title">Use Cases & Prioritization</div>
+        <div class="step-card-text">Identify use cases, personas, prioritize requirements, and license needs</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">Step 4</div>
+        <div class="step-icon s-blue">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FCB516" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <div class="step-card-title">Develop Copilot Agent</div>
+        <div class="step-card-text">Build an intelligent automation solution based on your prioritized requirements</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">Step 5</div>
+        <div class="step-icon s-green">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FCB516" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M16 13H8M16 17H8"/></svg>
+        </div>
+        <div class="step-card-title">Solution Documentation</div>
+        <div class="step-card-text">Requirements, as-built configuration, and environment recommendations</div>
+      </div>
+      <div class="step-card">
+        <div class="step-num">Step 6</div>
+        <div class="step-icon s-teal">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FCB516" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="step-card-title">Knowledge Transfer</div>
+        <div class="step-card-text">Empower your team to manage and extend your Copilot agent solution</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gold Divider -->
+  <div class="gold-divider"></div>
+
+  <!-- Expected Outcomes - Dark -->
+  <div class="outcomes-section">
+    <div class="outcomes-inner">
+      <div class="outcomes-top-row">
+        <div class="outcomes-badge">Expected Outcomes</div>
+        <span class="outcomes-title">What You Walk Away With</span>
+      </div>
+      <div class="outcomes-grid">
+        <div class="outcome-item">
+          <div class="outcome-num o-gold">1</div>
+          <div class="outcome-text"><strong>High-impact automation opportunities</strong> documented with personas, workflows, and success metrics</div>
+        </div>
+        <div class="outcome-item">
+          <div class="outcome-num o-purple">2</div>
+          <div class="outcome-text"><strong>Prioritized use cases</strong> aligned to business and technology requirements with license advisory</div>
+        </div>
+        <div class="outcome-item">
+          <div class="outcome-num o-blue">3</div>
+          <div class="outcome-text"><strong>Environment readiness</strong> evaluated and configured to enable Copilot agent creation</div>
+        </div>
+        <div class="outcome-item">
+          <div class="outcome-num o-gold">4</div>
+          <div class="outcome-text"><strong>Copilot Studio configured</strong> with best practices for agent consumption, authoring, and management</div>
+        </div>
+        <div class="outcome-item">
+          <div class="outcome-num o-purple">5</div>
+          <div class="outcome-text"><strong>Working Copilot agent</strong> developed and implemented aligned to your solution goals</div>
+        </div>
+        <div class="outcome-item">
+          <div class="outcome-num o-blue">6</div>
+          <div class="outcome-text"><strong>Knowledge transfer complete</strong> so your team can manage and evolve the solution independently</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page 1 Footer -->
+  <div class="page-footer">
+    <div class="footer-col-left">
+      <div class="footer-url">CentricConsulting.com</div>
+      <div class="footer-ms">Microsoft Managed Partner | All Six Solutions Partner Designations</div>
+    </div>
+    <div class="footer-col-center">
+      <div class="footer-logo-p1"><span class="logo-accent">((</span> CENTRIC <span class="logo-accent">))</span></div>
+    </div>
+    <div class="footer-col-right">
+      <div class="footer-tagline">The Right Partner</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ==================== PAGE 2 ==================== -->
+<div class="page">
+
+  <!-- Header -->
+  <div class="page2-header">
+    <div class="page2-header-left">
+      <div class="page2-header-title">COPILOT AGENT GOVERNANCE & IMPLEMENTATION</div>
+      <div class="page2-header-sub">From Agent Creation to Action - Governed End-to-End</div>
+    </div>
+    <div class="page2-logo"><span style="color:#FCB516">((</span>CENTRIC<span style="color:#FCB516">))</span></div>
+  </div>
+
+  <!-- Copilot Expertise - Timeline -->
+  <div class="expertise-section">
+    <div class="expertise-title-row">
+      <div class="expertise-title">Our Copilot Expertise</div>
+      <div class="expertise-subtitle">End-to-end capabilities across the Copilot lifecycle</div>
+    </div>
+    <div class="timeline">
+
+      <!-- Row 1 - Left -->
+      <div class="tl-row">
+        <div class="tl-left">
+          <div class="tl-card">
+            <div class="tl-card-title">Tenant & Data Readiness</div>
+            <div class="tl-card-text">Assess Microsoft 365 and Copilot readiness across data, compliance, licensing, and adoption to identify gaps and define a clear, secure path to deployment.</div>
+          </div>
+        </div>
+        <div class="tl-dot"><span class="tl-dot-num">1</span></div>
+      </div>
+
+      <!-- Row 2 - Right -->
+      <div class="tl-row">
+        <div class="tl-right">
+          <div class="tl-card">
+            <div class="tl-card-title">Use Case Envisioning & Proof of Value</div>
+            <div class="tl-card-text">Identify and prioritize high-impact Copilot and agent use cases through structured workshops that align scenarios to business outcomes and validate value before scale.</div>
+          </div>
+        </div>
+        <div class="tl-dot"><span class="tl-dot-num">2</span></div>
+      </div>
+
+      <!-- Row 3 - Left -->
+      <div class="tl-row">
+        <div class="tl-left">
+          <div class="tl-card">
+            <div class="tl-card-title">Copilot Training & Adoption</div>
+            <div class="tl-card-text">Deliver role-based training and adoption programs that build awareness, enable practical usage, and drive sustained Copilot adoption across the organization.</div>
+          </div>
+        </div>
+        <div class="tl-dot"><span class="tl-dot-num">3</span></div>
+      </div>
+
+      <!-- Row 4 - Right -->
+      <div class="tl-row">
+        <div class="tl-right">
+          <div class="tl-card">
+            <div class="tl-card-title">Agent Governance & Deployment</div>
+            <div class="tl-card-text">End-to-end support for Copilot agent solutions - from use case design and environment configuration to development, documentation, and knowledge transfer.</div>
+          </div>
+        </div>
+        <div class="tl-dot"><span class="tl-dot-num">4</span></div>
+      </div>
+
+      <!-- Row 5 - Left -->
+      <div class="tl-row">
+        <div class="tl-left">
+          <div class="tl-card">
+            <div class="tl-card-title">Data Security for AI</div>
+            <div class="tl-card-text">Strengthen information protection, governance, and compliance to ensure Copilot and agents operate safely and in alignment with organizational risk requirements.</div>
+          </div>
+        </div>
+        <div class="tl-dot"><span class="tl-dot-num">5</span></div>
+      </div>
+
+      <!-- Row 6 - Right -->
+      <div class="tl-row">
+        <div class="tl-right">
+          <div class="tl-card">
+            <div class="tl-card-title">Copilot Extend & Operationalize</div>
+            <div class="tl-card-text">Ongoing advisory and optimization to monitor adoption, refine governance, and continuously evolve Copilot capabilities to maximize long-term value.</div>
+          </div>
+        </div>
+        <div class="tl-dot"><span class="tl-dot-num">6</span></div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- About + At-A-Glance -->
+  <div class="about-section">
+    <div class="about-grid">
+      <div>
+        <div class="about-label">About Centric Consulting</div>
+        <div class="about-text">
+          Centric Consulting is an international management consulting firm with unmatched expertise in business transformation, technology implementation, and adoption. Founded in 1999, Centric has grown to 1,400+ employees and 14 locations across the country and India.<br><br>
+          <strong>We partner with you to build a tailored Copilot enablement and deployment plan that fits your organization - from governance to go-live.</strong>
+        </div>
+      </div>
+      <div class="at-a-glance">
+        <div class="aag-title">Centric Consulting At-A-Glance</div>
+        <div class="map-bg"></div>
+        <div class="aag-grid">
+          <div class="aag-stat">
+            <div class="aag-circle navy-bg">
+              <div class="aag-number">27</div>
+              <div class="aag-sublabel">Years in<br>Business</div>
+            </div>
+          </div>
+          <div class="aag-stat">
+            <div class="aag-circle purple-bg">
+              <div class="aag-number">1,400+</div>
+              <div class="aag-sublabel">Consultants</div>
+            </div>
+          </div>
+          <div class="aag-stat">
+            <div class="aag-circle navy-bg">
+              <div class="aag-number">14</div>
+              <div class="aag-sublabel">U.S.<br>Locations</div>
+            </div>
+          </div>
+        </div>
+        <div class="aag-grid-row2">
+          <div class="aag-stat">
+            <div class="aag-circle navy-bg">
+              <div class="aag-number">1-100+</div>
+              <div class="aag-sublabel">Project<br>Team Sizes</div>
+            </div>
+          </div>
+          <div class="aag-stat">
+            <div class="aag-circle purple-bg">
+              <div class="aag-number">1</div>
+              <div class="aag-sublabel">Offshore<br>Location</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Footer -->
+  <div class="contact-footer">
+    <div class="contact-gold-line"></div>
+    <div class="contact-bar">
+
+      <!-- Left: Contact Info -->
+      <div class="contact-col-left">
+        <div class="contact-name">Karina Myers</div>
+        <div class="contact-title-text">National Microsoft Cloud Platforms Practice Lead</div>
+        <div class="contact-detail">
+          <span class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#FCB516" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+          </span>
+          Karina.Myers@centricconsulting.com
+        </div>
+        <div class="contact-url">Visit CentricConsulting.com to learn more.</div>
+      </div>
+
+      <!-- Center: Logo & Badge -->
+      <div class="contact-col-center">
+        <div class="footer-logo"><span class="paren">((</span> CENTRIC <span class="paren">))</span></div>
+        <div class="ms-badge">Microsoft Managed Partner</div>
+      </div>
+
+      <!-- Right: Accolades -->
+      <div class="contact-col-right">
+        <div class="accolades">
+          <span class="accolade-item">All 6 Solutions Partner Designations</span>
+          <span class="accolade-item">AI Inner Circle Member</span>
+          <span class="accolade-item">Fabric Featured Partner</span>
+          <span class="accolade-item">15+ Year Microsoft Partner</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

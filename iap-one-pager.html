@@ -1,0 +1,1115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insurance Analytics Platform - Centric Consulting</title>
+<style>
+  /* --- Reset & Page Setup --- */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  @page {
+    size: 8.5in 11in;
+    margin: 0;
+  }
+
+  @media print {
+    body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .page { page-break-after: always; }
+    .page:last-child { page-break-after: auto; }
+  }
+
+  :root {
+    --navy: #232F3E;
+    --purple: #412C5D;
+    --gold: #FCB516;
+    --charcoal: #424242;
+    --medium-gray: #676869;
+    --light-gray: #EAEAEA;
+    --off-white: #F5F5F5;
+    --white: #FFFFFF;
+  }
+
+  body {
+    font-family: Arial, Helvetica, sans-serif;
+    color: var(--charcoal);
+    font-size: 10pt;
+    line-height: 1.4;
+    background: #ccc;
+  }
+
+  .page {
+    width: 8.5in;
+    height: 11in;
+    margin: 0 auto 20px auto;
+    background: var(--white);
+    position: relative;
+    overflow: hidden;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.15);
+  }
+
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; margin: 0; }
+  }
+
+  /* ============================================================
+     PAGE 1
+     ============================================================ */
+
+  /* --- Header Block --- */
+  .header-block {
+    background: var(--navy);
+    height: 3.6in;
+    position: relative;
+    padding: 0.4in 0.5in 0.35in 0.5in;
+    overflow: hidden;
+  }
+
+  .header-photo {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 55%;
+    height: 100%;
+    background: linear-gradient(to right, var(--navy) 0%, rgba(35,47,62,0.4) 30%, rgba(35,47,62,0.1) 60%),
+                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect fill="%23394d63" width="400" height="300"/><rect fill="%23455a70" x="40" y="30" width="180" height="120" rx="4"/><rect fill="%23536d83" x="50" y="50" width="160" height="80" rx="2"/><rect fill="%2360a0d0" x="60" y="60" width="50" height="30"/><rect fill="%23fcb516" x="120" y="60" width="30" height="30"/><rect fill="%2380b8e0" x="60" y="95" width="80" height="3"/><rect fill="%23657a8e" x="60" y="102" width="60" height="3"/><circle fill="%23506070" cx="300" cy="100" r="60"/><rect fill="%23455a70" x="260" y="180" width="100" height="80" rx="4"/></svg>');
+    background-size: cover;
+    background-position: center;
+  }
+
+  .logo {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 0.25in;
+  }
+
+  .logo-text {
+    font-size: 14pt;
+    font-weight: bold;
+    color: var(--white);
+    letter-spacing: 3px;
+  }
+
+  .logo-text .paren {
+    color: var(--gold);
+  }
+
+  .header-title {
+    position: relative;
+    z-index: 2;
+    max-width: 3.8in;
+  }
+
+  .header-title h1 {
+    font-size: 34pt;
+    font-weight: bold;
+    color: var(--white);
+    line-height: 1.15;
+    margin-bottom: 0.15in;
+  }
+
+  .header-subtitle {
+    font-size: 11pt;
+    color: rgba(255,255,255,0.85);
+    line-height: 1.4;
+    max-width: 3.5in;
+  }
+
+  /* --- Main Content --- */
+  .main-content {
+    display: flex;
+    gap: 0;
+    padding: 0.3in 0.5in 0.2in 0.5in;
+  }
+
+  .col-left {
+    flex: 0 0 3.3in;
+    padding-right: 0.3in;
+    background: var(--light-gray);
+    margin-left: -0.5in;
+    padding-left: 0.5in;
+    padding-top: 0.25in;
+    padding-bottom: 0.25in;
+  }
+
+  .col-right {
+    flex: 1;
+    padding-left: 0.3in;
+    padding-top: 0.25in;
+  }
+
+  .section-heading {
+    font-size: 15pt;
+    font-weight: bold;
+    color: var(--purple);
+    margin-bottom: 0.12in;
+  }
+
+  .body-text {
+    font-size: 9.5pt;
+    color: var(--charcoal);
+    line-height: 1.5;
+    margin-bottom: 0.1in;
+  }
+
+  .gold-bar {
+    width: 60px;
+    height: 4px;
+    background: var(--gold);
+    margin: 0.15in 0;
+    border: none;
+  }
+
+  /* --- Stat Blocks --- */
+  .stat-block {
+    margin-bottom: 0.15in;
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .stat-icon {
+    flex: 0 0 44px;
+    width: 44px;
+    height: 44px;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 2px;
+  }
+
+  .stat-icon svg {
+    width: 22px;
+    height: 22px;
+  }
+
+  .stat-content {
+    flex: 1;
+  }
+
+  .stat-title {
+    font-size: 9pt;
+    font-weight: bold;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 3px;
+  }
+
+  .stat-desc {
+    font-size: 8.5pt;
+    color: var(--charcoal);
+    line-height: 1.4;
+  }
+
+  /* --- Value Chain --- */
+  .value-chain-section {
+    padding: 0.15in 0.5in 0.1in 0.5in;
+  }
+
+  .vc-heading {
+    font-size: 15pt;
+    font-weight: bold;
+    color: var(--purple);
+    margin-bottom: 0.12in;
+  }
+
+  .vc-flow {
+    display: flex;
+    align-items: center;
+    gap: 0;
+    position: relative;
+  }
+
+  /* Dotted connector line behind circles */
+  .vc-flow::before {
+    content: '';
+    position: absolute;
+    top: 32px;
+    left: 32px;
+    right: 32px;
+    height: 2px;
+    background: repeating-linear-gradient(to right, var(--gold) 0, var(--gold) 6px, transparent 6px, transparent 12px);
+    z-index: 0;
+  }
+
+  .vc-node {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .vc-circle {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 6px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  }
+
+  .vc-circle svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .vc-circle.c-navy { background: #232F3E; }
+  .vc-circle.c-purple { background: #412C5D; }
+  .vc-circle.c-steel { background: #1F5D82; }
+  .vc-circle.c-emerald { background: #30B676; }
+  .vc-circle.c-lavender { background: #796C8D; }
+  .vc-circle.c-mid-blue { background: #6CA7CF; }
+  .vc-circle.c-green { background: #6B8E23; }
+
+  .vc-node-label {
+    font-size: 7pt;
+    font-weight: bold;
+    color: var(--charcoal);
+    line-height: 1.25;
+    text-align: center;
+    text-transform: uppercase;
+    letter-spacing: 0.2px;
+  }
+
+  /* --- Page Footer --- */
+  .page-footer-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .gold-footer-line {
+    height: 4px;
+    background: var(--gold);
+  }
+
+  .footer-navy {
+    background: var(--navy);
+    padding: 6px 0.5in;
+    text-align: right;
+  }
+
+  .footer-url {
+    font-size: 8.5pt;
+    color: rgba(255,255,255,0.7);
+  }
+
+  /* ============================================================
+     PAGE 2
+     ============================================================ */
+
+  .p2-header {
+    padding: 0.35in 0.5in 0.2in 0.5in;
+    background: var(--navy);
+  }
+
+  .p2-heading {
+    font-size: 18pt;
+    font-weight: bold;
+    color: var(--white);
+    margin-bottom: 0.06in;
+  }
+
+  .p2-subtext {
+    font-size: 10pt;
+    color: rgba(255,255,255,0.8);
+    margin-bottom: 0;
+  }
+
+  /* --- Hub-and-Spoke Diagram --- */
+  .diagram-section {
+    padding: 0.2in 0.5in;
+    margin-bottom: 0.15in;
+    background: #F0F2F5;
+  }
+
+  .diagram-container {
+    position: relative;
+    width: 100%;
+    height: 3.8in;
+  }
+
+  /* Connection lines via SVG */
+  .diagram-lines {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+
+  /* Center hub */
+  .hub {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1.7in;
+    height: 1.7in;
+    border-radius: 50%;
+    background: var(--navy);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    z-index: 2;
+    box-shadow: 0 4px 16px rgba(35,47,62,0.35);
+    border: 3px solid var(--gold);
+  }
+
+  .hub-icon {
+    margin-bottom: 4px;
+  }
+
+  .hub-icon svg {
+    width: 28px;
+    height: 28px;
+  }
+
+  .hub-title {
+    font-size: 9pt;
+    font-weight: bold;
+    color: var(--gold);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    line-height: 1.3;
+    padding: 0 8px;
+  }
+
+  .hub-desc {
+    font-size: 6.5pt;
+    color: rgba(255,255,255,0.8);
+    line-height: 1.3;
+    padding: 2px 12px 0 12px;
+    max-width: 1.5in;
+  }
+
+  /* Spoke nodes */
+  .spoke {
+    position: absolute;
+    width: 2.05in;
+    z-index: 2;
+  }
+
+  .spoke-node {
+    background: var(--white);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 3px 12px rgba(0,0,0,0.15);
+  }
+
+  .spoke-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 7px 10px;
+  }
+
+  .spoke-header.purple { background: var(--purple); }
+  .spoke-header.navy { background: var(--navy); }
+
+  .spoke-icon {
+    flex: 0 0 30px;
+    width: 30px;
+    height: 30px;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.1);
+  }
+
+  .spoke-icon svg {
+    width: 15px;
+    height: 15px;
+  }
+
+  .spoke-title {
+    font-size: 7.5pt;
+    font-weight: bold;
+    color: var(--white);
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    line-height: 1.25;
+  }
+
+  .spoke-body {
+    padding: 8px 10px;
+    background: var(--off-white);
+  }
+
+  .spoke-desc {
+    font-size: 7pt;
+    color: var(--charcoal);
+    line-height: 1.4;
+  }
+
+  .spoke.bottom-left .spoke-body,
+  .spoke.bottom-right .spoke-body {
+    min-height: 52px;
+  }
+
+  .spoke.top-left .spoke-body,
+  .spoke.top-right .spoke-body {
+    min-height: 52px;
+  }
+
+  /* Spoke positions */
+  .spoke.top-left {
+    top: 0;
+    left: 0;
+  }
+
+  .spoke.top-right {
+    top: 0;
+    right: 0;
+  }
+
+  .spoke.bottom-left {
+    bottom: 0;
+    left: 0;
+  }
+
+  .spoke.bottom-right {
+    bottom: 0;
+    right: 0;
+  }
+
+  /* --- About / At-A-Glance Section --- */
+  .about-section {
+    padding: 0.25in 0.5in 0.2in 0.5in;
+    position: relative;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .about-heading {
+    font-size: 16pt;
+    font-weight: bold;
+    color: var(--purple);
+    margin-bottom: 0.1in;
+  }
+
+  .about-layout {
+    display: flex;
+    gap: 0.3in;
+    align-items: center;
+  }
+
+  .about-text-col {
+    flex: 0 0 3.0in;
+  }
+
+  .about-text {
+    font-size: 9pt;
+    color: var(--charcoal);
+    line-height: 1.5;
+    margin-bottom: 0.08in;
+  }
+
+  .about-bold {
+    font-size: 9pt;
+    font-weight: bold;
+    color: var(--charcoal);
+    line-height: 1.5;
+  }
+
+  .at-a-glance {
+    flex: 1;
+    position: relative;
+    background: transparent;
+    border-radius: 4px;
+    padding: 0.15in 0.1in;
+    min-height: 2.1in;
+    overflow: hidden;
+  }
+
+  .at-a-glance-title {
+    font-size: 8pt;
+    font-weight: bold;
+    color: var(--purple);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .map-bg {
+    position: absolute;
+    top: 0.3in;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('slide28-img0.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 1;
+    filter: contrast(2.5) brightness(0.85);
+  }
+
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .aag-stat {
+    text-align: center;
+    padding: 4px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .aag-circle {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 4px;
+  }
+
+  .aag-circle.navy {
+    background: var(--navy);
+  }
+
+  .aag-circle.purple {
+    background: var(--purple);
+  }
+
+  .aag-number {
+    font-size: 17pt;
+    font-weight: bold;
+    color: var(--gold);
+    line-height: 1.1;
+  }
+
+  .aag-circle .aag-sublabel {
+    font-size: 6pt;
+    color: var(--white);
+    text-transform: uppercase;
+    line-height: 1.2;
+    margin-top: 2px;
+  }
+
+  .aag-label {
+    font-size: 6.5pt;
+    font-weight: bold;
+    color: var(--navy);
+    text-transform: uppercase;
+    line-height: 1.25;
+    margin-top: 2px;
+  }
+
+  .stats-grid-row2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    position: relative;
+    z-index: 1;
+    margin-top: 6px;
+  }
+
+  /* --- Contact Footer --- */
+  .contact-footer {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+  }
+
+  .contact-gold-line {
+    height: 4px;
+    background: var(--gold);
+  }
+
+  .contact-bar {
+    background: var(--navy);
+    padding: 0.18in 0.4in;
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+
+  .contact-col-left {
+    flex: 1;
+  }
+
+  .contact-col-center {
+    flex: 0 0 auto;
+    text-align: center;
+    padding: 0 0.3in;
+    border-left: 1px solid rgba(255,255,255,0.15);
+    border-right: 1px solid rgba(255,255,255,0.15);
+  }
+
+  .contact-col-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .contact-name {
+    font-size: 10pt;
+    font-weight: bold;
+    color: var(--white);
+    margin-bottom: 1px;
+  }
+
+  .contact-title {
+    font-size: 8.5pt;
+    color: var(--gold);
+    font-style: italic;
+    margin-bottom: 5px;
+  }
+
+  .contact-detail {
+    font-size: 8pt;
+    color: var(--white);
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .contact-icon {
+    width: 14px;
+    height: 14px;
+    border: 1.5px solid var(--gold);
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .contact-icon svg {
+    width: 8px;
+    height: 8px;
+  }
+
+  .contact-url {
+    font-size: 8pt;
+    color: var(--gold);
+    margin-top: 4px;
+  }
+
+  .footer-logo {
+    font-size: 18pt;
+    font-weight: bold;
+    color: var(--white);
+    letter-spacing: 3px;
+    margin-bottom: 4px;
+  }
+
+  .footer-logo .paren {
+    color: var(--gold);
+  }
+
+  .ms-badge {
+    font-size: 8pt;
+    color: rgba(255,255,255,0.7);
+    text-align: center;
+  }
+
+  /* --- Accolades --- */
+  .accolades {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-end;
+  }
+
+  .accolade-item {
+    font-size: 7.5pt;
+    color: var(--gold);
+    font-weight: bold;
+    background: rgba(252,181,22,0.1);
+    border: 1px solid rgba(252,181,22,0.3);
+    padding: 2px 10px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+</style>
+</head>
+<body>
+
+<!-- ============================================================
+     PAGE 1
+     ============================================================ -->
+<div class="page" id="page1">
+
+  <!-- Header -->
+  <div class="header-block">
+    <div class="header-photo"></div>
+    <div class="logo">
+      <span class="logo-text"><span class="paren">((</span> CENTRIC <span class="paren">))</span></span>
+    </div>
+    <div class="header-title">
+      <h1>Insurance<br>Analytics Platform</h1>
+      <div class="header-subtitle">
+        Wherever you are in your analytics journey, Centric's pre-engineered platform accelerates insight-driven decision making.
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+
+    <!-- Left Column -->
+    <div class="col-left">
+      <div class="section-heading">Why Partner with Us</div>
+      <p class="body-text">
+        Our Insurance Analytics Platform is a pre-engineered analytics solution that powers business insights that drive premium growth, retention and improved operational efficiency.
+      </p>
+      <p class="body-text">
+        The platform supports our comprehensive Insurance Value Chain, which ties performance metrics to functional areas of your business. Data Governance is applied throughout to drive consistency and accuracy.
+      </p>
+      <p class="body-text">
+        Centric will incorporate your enterprise data into a Modern Data Platform, enabling business intelligence, predictive analytics, scalability and extensibility.
+      </p>
+      <hr class="gold-bar">
+    </div>
+
+    <!-- Right Column -->
+    <div class="col-right">
+      <div class="section-heading">Centric Insurance Practice</div>
+      <p class="body-text" style="margin-bottom: 0.18in;">
+        With Centric as a consulting partner, insurers have improved operational efficiency, grown profits and turned disruption into transformation. So can you.
+      </p>
+
+      <!-- Stat: 750+ Projects -->
+      <div class="stat-block">
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#FCB516" stroke-width="2">
+            <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
+          </svg>
+        </div>
+        <div class="stat-content">
+          <div class="stat-title">More Than 750 Projects Delivered</div>
+          <div class="stat-desc">Our consultants have delivered high-profile projects for 60+ carriers throughout the U.S.</div>
+        </div>
+      </div>
+
+      <!-- Stat: 350 Resources -->
+      <div class="stat-block">
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#FCB516" stroke-width="2">
+            <circle cx="12" cy="7" r="4"/><path d="M5.5 21a6.5 6.5 0 0113 0"/>
+          </svg>
+        </div>
+        <div class="stat-content">
+          <div class="stat-title">More Than 350 Insurance Resources</div>
+          <div class="stat-desc">Our seasoned consultants have deep experience in the Property & Casualty and Life & Annuity insurance industries.</div>
+        </div>
+      </div>
+
+      <!-- Stat: Global -->
+      <div class="stat-block">
+        <div class="stat-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#FCB516" stroke-width="2">
+            <circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 010 20M12 2a15 15 0 000 20"/>
+          </svg>
+        </div>
+        <div class="stat-content">
+          <div class="stat-title">Global Sourcing Capability</div>
+          <div class="stat-desc">Our local talent and offshore resources provide broad-range and cost-effective business solutions.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Value Chain -->
+  <div class="value-chain-section">
+    <div class="vc-heading">Insurance Value Chain</div>
+    <div class="vc-flow">
+      <div class="vc-node">
+        <div class="vc-circle c-navy">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#FCB516" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/></svg>
+        </div>
+        <div class="vc-node-label">Develop<br>Products</div>
+      </div>
+      <div class="vc-node">
+        <div class="vc-circle c-purple">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#FCB516" stroke-width="2"><path d="M3 3v18h18"/><path d="M7 16l4-4 4 4 5-5"/></svg>
+        </div>
+        <div class="vc-node-label">Market<br>Products</div>
+      </div>
+      <div class="vc-node">
+        <div class="vc-circle c-steel">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#FCB516" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><path d="M3 6h18M16 10a4 4 0 01-8 0"/></svg>
+        </div>
+        <div class="vc-node-label">Sell<br>Products</div>
+      </div>
+      <div class="vc-node">
+        <div class="vc-circle c-navy">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#FCB516" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/></svg>
+        </div>
+        <div class="vc-node-label">Underwrite<br>Products</div>
+      </div>
+      <div class="vc-node">
+        <div class="vc-circle c-purple">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#FCB516" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M2 7h20M7 3v4"/></svg>
+        </div>
+        <div class="vc-node-label">Administer<br>Accounts</div>
+      </div>
+      <div class="vc-node">
+        <div class="vc-circle c-steel">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#FCB516" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <div class="vc-node-label">Administer<br>Claims</div>
+      </div>
+      <div class="vc-node">
+        <div class="vc-circle c-navy">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#FCB516" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <div class="vc-node-label">Service<br>Customers</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <div class="page-footer-bar">
+    <div class="gold-footer-line"></div>
+    <div class="footer-navy">
+      <span class="footer-url">CentricConsulting.com</span>
+    </div>
+  </div>
+
+</div>
+
+<!-- ============================================================
+     PAGE 2
+     ============================================================ -->
+<div class="page" id="page2">
+
+  <!-- Capabilities Header -->
+  <div class="p2-header">
+    <div class="p2-heading">Insurance Analytics Capabilities</div>
+    <div class="p2-subtext">Our platform works even when your data spans multiple core systems.</div>
+  </div>
+
+  <!-- Hub-and-Spoke Diagram -->
+  <div class="diagram-section">
+    <div class="diagram-container">
+
+      <!-- Connection Lines -->
+      <svg class="diagram-lines" viewBox="0 0 720 365" preserveAspectRatio="xMidYMid meet">
+        <!-- Top-left to center -->
+        <line x1="195" y1="75" x2="305" y2="145" stroke="#FCB516" stroke-width="2.5" stroke-dasharray="6,4" opacity="0.6"/>
+        <!-- Top-right to center -->
+        <line x1="525" y1="75" x2="415" y2="145" stroke="#FCB516" stroke-width="2.5" stroke-dasharray="6,4" opacity="0.6"/>
+        <!-- Bottom-left to center -->
+        <line x1="195" y1="290" x2="305" y2="220" stroke="#FCB516" stroke-width="2.5" stroke-dasharray="6,4" opacity="0.6"/>
+        <!-- Bottom-right to center -->
+        <line x1="525" y1="290" x2="415" y2="220" stroke="#FCB516" stroke-width="2.5" stroke-dasharray="6,4" opacity="0.6"/>
+        <!-- Subtle glow on lines -->
+        <line x1="195" y1="75" x2="305" y2="145" stroke="#FCB516" stroke-width="6" opacity="0.08"/>
+        <line x1="525" y1="75" x2="415" y2="145" stroke="#FCB516" stroke-width="6" opacity="0.08"/>
+        <line x1="195" y1="290" x2="305" y2="220" stroke="#FCB516" stroke-width="6" opacity="0.08"/>
+        <line x1="525" y1="290" x2="415" y2="220" stroke="#FCB516" stroke-width="6" opacity="0.08"/>
+      </svg>
+
+      <!-- Center Hub: Insurance Analytics Platform -->
+      <div class="hub">
+        <div class="hub-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#FCB516" stroke-width="2">
+            <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
+          </svg>
+        </div>
+        <div class="hub-title">Insurance<br>Analytics<br>Platform</div>
+        <div class="hub-desc">Powering insight-driven decisions across your value chain</div>
+      </div>
+
+      <!-- Spoke: Pre-Built Visualizations (top-left) -->
+      <div class="spoke top-left">
+        <div class="spoke-node">
+          <div class="spoke-header navy">
+            <div class="spoke-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#FCB516" stroke-width="2">
+                <rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>
+              </svg>
+            </div>
+            <div class="spoke-title">Pre-Built<br>Visualizations</div>
+          </div>
+          <div class="spoke-body">
+            <div class="spoke-desc">Designed to support the Value Chain and Use Cases. Enables ad-hoc analysis, reducing dependence on IT for reports and data queries.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Spoke: Business & Metric Definitions (top-right) -->
+      <div class="spoke top-right">
+        <div class="spoke-node">
+          <div class="spoke-header purple">
+            <div class="spoke-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#FCB516" stroke-width="2">
+                <path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M16 13H8M16 17H8M10 9H8"/>
+              </svg>
+            </div>
+            <div class="spoke-title">Business & Metric<br>Definitions</div>
+          </div>
+          <div class="spoke-body">
+            <div class="spoke-desc">Clearly defined definitions allow management to make decisions from Visualizations and Data Model, customized to your requirements.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Spoke: Insurance Data Model (bottom-left) -->
+      <div class="spoke bottom-left">
+        <div class="spoke-node">
+          <div class="spoke-header purple">
+            <div class="spoke-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#FCB516" stroke-width="2">
+                <ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"/><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"/>
+              </svg>
+            </div>
+            <div class="spoke-title">Insurance<br>Data Model</div>
+          </div>
+          <div class="spoke-body">
+            <div class="spoke-desc">Over 150 tables and 800+ attributes designed to support visualizations, machine learning and other reporting supported by the platform.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Spoke: Modern Data Platform (bottom-right) -->
+      <div class="spoke bottom-right">
+        <div class="spoke-node">
+          <div class="spoke-header navy">
+            <div class="spoke-icon">
+              <svg viewBox="0 0 24 24" fill="none" stroke="#FCB516" stroke-width="2">
+                <rect x="2" y="2" width="20" height="8" rx="2"/><rect x="2" y="14" width="20" height="8" rx="2"/><circle cx="6" cy="6" r="1" fill="#FCB516"/><circle cx="6" cy="18" r="1" fill="#FCB516"/>
+              </svg>
+            </div>
+            <div class="spoke-title">Microsoft Fabric<br>& Azure</div>
+          </div>
+          <div class="spoke-body">
+            <div class="spoke-desc">Built on Microsoft Fabric and Azure, the platform delivers scalable analytics, real-time intelligence and enterprise-grade data management in a unified cloud environment.</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- About Centric + At-A-Glance -->
+  <div class="about-section">
+    <div class="about-heading">About Centric</div>
+    <div class="about-layout">
+      <div class="about-text-col">
+        <p class="about-text">
+          Centric Consulting is an international management consulting firm with unmatched in-house expertise in business transformation, hybrid workplace strategy, technology implementation and adoption. The firm has established a reputation for combining the benefits of experience, flexibility and cost efficiency with the goal of creating custom solutions centered on what's best for your business.
+        </p>
+        <p class="about-bold">
+          We serve clients across the nation - and you get solutions designed for you by industry, business and technology consulting experts from the U.S. and India.
+        </p>
+      </div>
+      <div class="at-a-glance">
+        <div class="at-a-glance-title">Centric Consulting At-A-Glance</div>
+        <div class="map-bg"></div>
+        <div class="stats-grid">
+          <div class="aag-stat">
+            <div class="aag-circle navy">
+              <div class="aag-number">27</div>
+              <div class="aag-sublabel">Years in<br>Business</div>
+            </div>
+          </div>
+          <div class="aag-stat">
+            <div class="aag-circle purple">
+              <div class="aag-number">1,400+</div>
+              <div class="aag-sublabel">Consultants</div>
+            </div>
+          </div>
+          <div class="aag-stat">
+            <div class="aag-circle navy">
+              <div class="aag-number">13</div>
+              <div class="aag-sublabel">U.S.<br>Locations</div>
+            </div>
+          </div>
+        </div>
+        <div class="stats-grid-row2">
+          <div class="aag-stat">
+            <div class="aag-circle navy">
+              <div class="aag-number">1-100+</div>
+              <div class="aag-sublabel">Project<br>Team Sizes</div>
+            </div>
+          </div>
+          <div class="aag-stat">
+            <div class="aag-circle purple">
+              <div class="aag-number">1</div>
+              <div class="aag-sublabel">Offshore<br>Location</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Footer -->
+  <div class="contact-footer">
+    <div class="contact-gold-line"></div>
+    <div class="contact-bar">
+
+      <!-- Left: Contact Info -->
+      <div class="contact-col-left">
+        <div class="contact-name">JEREMY GRUENWALD</div>
+        <div class="contact-title">National IAP Capability Lead</div>
+        <div class="contact-detail">
+          <span class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#FCB516" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.13.81.36 1.6.68 2.34a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.74-1.25a2 2 0 012.11-.45c.74.32 1.53.55 2.34.68A2 2 0 0122 16.92z"/></svg>
+          </span>
+          (224) 402-0638
+        </div>
+        <div class="contact-detail">
+          <span class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#FCB516" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+          </span>
+          jeremy.gruenwald@centricconsulting.com
+        </div>
+        <div class="contact-url">Visit CentricConsulting.com to learn more.</div>
+      </div>
+
+      <!-- Center: Logo & Badge -->
+      <div class="contact-col-center">
+        <div class="footer-logo"><span class="paren">((</span> CENTRIC <span class="paren">))</span></div>
+        <div class="ms-badge">Microsoft Managed Partner</div>
+      </div>
+
+      <!-- Right: Accolades -->
+      <div class="contact-col-right">
+        <div class="accolades">
+          <span class="accolade-item">Fabric Featured Partner</span>
+          <span class="accolade-item">Fabric RTI Featured Partner</span>
+          <span class="accolade-item">Fabric Database Featured Partner</span>
+          <span class="accolade-item">15+ Year Microsoft Partner</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

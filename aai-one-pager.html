@@ -1,0 +1,1364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Applied Agentic Integration - Centric Consulting</title>
+<style>
+  @page {
+    size: 8.5in 11in;
+    margin: 0;
+  }
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    font-family: Arial, sans-serif;
+    color: #424242;
+    background: #ccc;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  @media print {
+    body { background: #fff; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+    .page { page-break-after: always; box-shadow: none; margin: 0; }
+    .page:last-child { page-break-after: auto; }
+  }
+
+  .page {
+    width: 8.5in;
+    height: 11in;
+    margin: 0 auto 20px auto;
+    position: relative;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 2px 20px rgba(0,0,0,0.25);
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* ============================================
+     PAGE 1
+     ============================================ */
+
+  /* Top Bar */
+  .hero-bar {
+    background: #232F3E;
+    height: 0.55in;
+    padding: 0 0.5in;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .logo-text {
+    font-size: 22px;
+    font-weight: bold;
+    color: #fff;
+    letter-spacing: 3px;
+  }
+
+  .logo-accent { color: #FCB516; }
+
+  .funding-badge {
+    background: #FCB516;
+    color: #232F3E;
+    font-size: 9px;
+    font-weight: bold;
+    padding: 6px 16px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Hero Section */
+  .hero-section {
+    background: linear-gradient(135deg, #412C5D 0%, #232F3E 100%);
+    height: 1.6in;
+    padding: 0.3in 0.5in;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .hero-section::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: #FCB516;
+  }
+
+  .hero-pretitle {
+    color: #FCB516;
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    margin-bottom: 8px;
+  }
+
+  .hero-title {
+    color: #fff;
+    font-size: 32px;
+    font-weight: bold;
+    line-height: 1.15;
+    margin-bottom: 10px;
+  }
+
+  .hero-tagline {
+    color: #ABCAE3;
+    font-size: 14px;
+    font-style: italic;
+    line-height: 1.4;
+  }
+
+  /* Why Centric */
+  .why-section {
+    padding: 0.35in 0.5in 0.3in 0.5in;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    flex: 1;
+  }
+
+  .section-title {
+    font-size: 18px;
+    font-weight: bold;
+    color: #412C5D;
+    margin-bottom: 14px;
+    padding-bottom: 5px;
+    border-bottom: 3px solid #FCB516;
+    display: inline-block;
+  }
+
+  .why-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px 28px;
+  }
+
+  .why-card {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .why-icon {
+    width: 36px;
+    height: 36px;
+    min-width: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1px;
+  }
+
+  .why-icon.gold { background: #FFF8E5; border: 2px solid #FCB516; color: #FCB516; }
+  .why-icon.purple { background: #F0ECF4; border: 2px solid #412C5D; color: #412C5D; }
+  .why-icon.blue { background: #E8F2FA; border: 2px solid #1F5D82; color: #1F5D82; }
+  .why-icon.navy { background: #E8ECF0; border: 2px solid #232F3E; color: #232F3E; }
+
+  .why-label {
+    font-size: 10px;
+    font-weight: bold;
+    color: #232F3E;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-bottom: 2px;
+  }
+
+  .why-text {
+    font-size: 9.5px;
+    color: #676869;
+    line-height: 1.4;
+  }
+
+  /* Gold Divider */
+  .gold-divider {
+    height: 4px;
+    background: linear-gradient(90deg, #FCB516 0%, #FCB516 40%, #F5F5F5 100%);
+  }
+
+  /* Architecture Section - Full Width */
+  .pov-section-p1 {
+    height: 3.7in;
+    padding: 0;
+    background: linear-gradient(160deg, #1a2230 0%, #232F3E 40%, #2a1f3d 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pov-section-p1::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 300px; height: 300px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(252,181,22,0.08) 0%, transparent 70%);
+  }
+
+  .pov-section-p1::after {
+    content: '';
+    position: absolute;
+    bottom: -60px; left: -60px;
+    width: 250px; height: 250px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(65,44,93,0.3) 0%, transparent 70%);
+  }
+
+  .pov-inner {
+    position: relative;
+    z-index: 1;
+    padding: 0.3in 0.5in 0.25in 0.5in;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .pov-top-row {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+  }
+
+  .pov-badge {
+    background: #FCB516;
+    color: #232F3E;
+    font-size: 9px;
+    font-weight: bold;
+    padding: 5px 16px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+  }
+
+  .pov-title {
+    color: #fff;
+    font-size: 24px;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+  }
+
+  .pov-subtitle {
+    color: #ABCAE3;
+    font-size: 10px;
+    margin-top: -12px;
+    margin-bottom: 16px;
+    letter-spacing: 0.3px;
+  }
+
+  /* Three-Layer Model */
+  .layer-stack {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    width: 100%;
+    flex: 1;
+  }
+
+  .layer-block {
+    display: flex;
+    align-items: stretch;
+    flex: 1;
+  }
+
+  .layer-row {
+    display: flex;
+    align-items: center;
+    padding: 14px 20px;
+    gap: 16px;
+    flex: 1;
+    position: relative;
+  }
+
+  .layer-row.human {
+    background: rgba(252,181,22,0.08);
+    border: 1px solid rgba(252,181,22,0.25);
+    border-radius: 10px 10px 0 0;
+  }
+
+  .layer-row.integration {
+    background: rgba(65,44,93,0.4);
+    border-left: 1px solid rgba(252,181,22,0.15);
+    border-right: 1px solid rgba(252,181,22,0.15);
+  }
+
+  .layer-row.agent {
+    background: rgba(31,93,130,0.35);
+    border: 1px solid rgba(171,202,227,0.15);
+    border-radius: 0 0 10px 10px;
+  }
+
+  .layer-icon-wrap {
+    flex: 0 0 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .layer-icon-wrap.human-icon {
+    background: rgba(252,181,22,0.15);
+    border: 2px solid #FCB516;
+  }
+
+  .layer-icon-wrap.integration-icon {
+    background: rgba(121,108,141,0.3);
+    border: 2px solid #796C8D;
+  }
+
+  .layer-icon-wrap.agent-icon {
+    background: rgba(171,202,227,0.15);
+    border: 2px solid #ABCAE3;
+  }
+
+  .layer-label-col {
+    flex: 0 0 140px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .layer-name {
+    font-size: 8px;
+    font-weight: bold;
+    color: #FCB516;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 3px;
+  }
+
+  .layer-platform {
+    font-size: 13px;
+    font-weight: bold;
+    color: #fff;
+    line-height: 1.2;
+  }
+
+  .layer-desc {
+    font-size: 8.5px;
+    color: #ABCAE3;
+    margin-top: 2px;
+    line-height: 1.3;
+  }
+
+  .layer-items {
+    flex: 1;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    justify-content: flex-end;
+  }
+
+  .layer-chip {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 5px;
+    padding: 4px 12px;
+    font-size: 9px;
+    color: #fff;
+    white-space: nowrap;
+    letter-spacing: 0.2px;
+  }
+
+  .layer-chip.highlight {
+    background: rgba(252,181,22,0.12);
+    border-color: rgba(252,181,22,0.3);
+    color: #FCB516;
+  }
+
+  /* Flow arrows between layers */
+  .layer-connector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 20px;
+    position: relative;
+  }
+
+  .connector-line {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .connector-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #FCB516;
+    opacity: 0.5;
+  }
+
+  .connector-arrow {
+    color: #FCB516;
+    font-size: 14px;
+    opacity: 0.6;
+  }
+
+  .connector-label {
+    font-size: 7px;
+    color: rgba(252,181,22,0.5);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  /* Stats Row */
+  .stats-row {
+    padding: 0.15in 0.5in 0.1in 0.5in;
+    background: #F5F5F5;
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+  }
+
+  .stat-card {
+    background: #fff;
+    border-radius: 10px 10px 0 0;
+    padding: 18px 20px 16px 20px;
+    text-align: center;
+    flex: 1;
+    border-top: 3px solid #FCB516;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+  }
+
+  .stat-number {
+    font-size: 26px;
+    font-weight: bold;
+    color: #412C5D;
+    line-height: 1.1;
+  }
+
+  .stat-source {
+    font-size: 8px;
+    color: #676869;
+    line-height: 1.3;
+    margin: 0 auto;
+  }
+
+  .stat-label {
+    font-size: 9px;
+    font-weight: bold;
+    color: #232F3E;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+    margin-bottom: 2px;
+  }
+
+  /* Page 1 Footer */
+  .page-footer {
+    background: #232F3E;
+    height: 0.55in;
+    padding: 0 0.5in;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+  }
+
+  .page-footer::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: #FCB516;
+  }
+
+  .footer-col-left {
+    flex: 1;
+  }
+
+  .footer-url {
+    color: #FCB516;
+    font-size: 10px;
+    font-weight: bold;
+  }
+
+  .footer-ms {
+    color: #ABCAE3;
+    font-size: 8px;
+    margin-top: 3px;
+  }
+
+  .footer-col-center {
+    flex: 0 0 auto;
+    text-align: center;
+  }
+
+  .footer-logo-p1 {
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    letter-spacing: 3px;
+  }
+
+  .footer-logo-p1 .logo-accent { color: #FCB516; }
+
+  .footer-col-right {
+    flex: 1;
+    text-align: right;
+  }
+
+  .footer-tagline {
+    color: rgba(255,255,255,0.5);
+    font-size: 9px;
+    font-style: italic;
+  }
+
+  /* ============================================
+     PAGE 2
+     ============================================ */
+
+  .page2-header {
+    background: #412C5D;
+    height: 0.5in;
+    padding: 0 0.5in;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+  }
+
+  .page2-header::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: #FCB516;
+  }
+
+  .page2-header-title {
+    color: #fff;
+    font-size: 13px;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+  }
+
+  .page2-logo {
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    letter-spacing: 2px;
+  }
+
+  /* Journey Visual - Dark Theme */
+  .journey-visual-section {
+    padding: 0;
+    background: linear-gradient(160deg, #1a2230 0%, #232F3E 40%, #2a1f3d 100%);
+    position: relative;
+    overflow: hidden;
+    height: 2.9in;
+  }
+
+  .journey-visual-section::before {
+    content: '';
+    position: absolute;
+    top: -60px; left: -60px;
+    width: 220px; height: 220px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(252,181,22,0.06) 0%, transparent 70%);
+  }
+
+  .journey-inner {
+    position: relative;
+    z-index: 1;
+    padding: 0.3in 0.45in 0.25in 0.45in;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .journey-visual-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 4px;
+  }
+
+  .journey-visual-subtitle {
+    font-size: 9px;
+    color: #ABCAE3;
+    text-align: center;
+    margin-bottom: 20px;
+    letter-spacing: 0.3px;
+  }
+
+  .journey-flow {
+    display: flex;
+    align-items: stretch;
+    justify-content: center;
+    gap: 12px;
+    flex: 1;
+  }
+
+  .journey-step {
+    flex: 1;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 10px;
+    padding: 16px 12px 14px 12px;
+    text-align: center;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .journey-step-num {
+    font-size: 8px;
+    font-weight: bold;
+    color: #FCB516;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+  }
+
+  .journey-step-icon {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+  }
+
+  .journey-step-icon.j-gold { background: rgba(252,181,22,0.15); border: 2px solid #FCB516; }
+  .journey-step-icon.j-purple { background: rgba(65,44,93,0.4); border: 2px solid #796C8D; }
+  .journey-step-icon.j-navy { background: rgba(35,47,62,0.6); border: 2px solid #ABCAE3; }
+  .journey-step-icon.j-blue { background: rgba(31,93,130,0.3); border: 2px solid #6CA7CF; }
+
+  .journey-step-name {
+    font-size: 11px;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 6px;
+  }
+
+  .journey-step-sub {
+    font-size: 8.5px;
+    color: #ABCAE3;
+    line-height: 1.35;
+  }
+
+  .journey-connector {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 0 0 16px;
+    color: #FCB516;
+    font-size: 18px;
+    opacity: 0.6;
+  }
+
+  /* Deliverables */
+  .deliverables-section {
+    padding: 0.35in 0.45in;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .deliverables-title-row {
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .deliverables-title {
+    font-size: 20px;
+    font-weight: bold;
+    color: #412C5D;
+    padding-bottom: 5px;
+    border-bottom: 3px solid #FCB516;
+    display: inline-block;
+  }
+
+  .deliverables-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+  }
+
+  .deliverable-card {
+    background: #F5F5F5;
+    border-radius: 10px;
+    padding: 18px 16px;
+    text-align: center;
+    border-top: 3px solid #FCB516;
+    position: relative;
+  }
+
+  .deliverable-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #412C5D, #232F3E);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 10px auto;
+  }
+
+  .deliverable-card-title {
+    font-size: 10px;
+    font-weight: bold;
+    color: #232F3E;
+    margin-bottom: 4px;
+    line-height: 1.3;
+  }
+
+  .deliverable-card-text {
+    font-size: 9px;
+    color: #676869;
+    line-height: 1.4;
+  }
+
+  /* About Section - sits above contact footer */
+  .about-section {
+    background: #F5F5F5;
+    padding: 0.25in 0.5in 0.2in 0.5in;
+  }
+
+  .about-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    align-items: center;
+  }
+
+  .about-label {
+    font-size: 13px;
+    font-weight: bold;
+    color: #412C5D;
+    margin-bottom: 6px;
+  }
+
+  .about-text {
+    font-size: 9.5px;
+    color: #676869;
+    line-height: 1.55;
+  }
+
+  .about-text strong { color: #424242; }
+
+  /* At-A-Glance with Map */
+  .at-a-glance {
+    position: relative;
+    border-radius: 6px;
+    padding: 0.2in 0.1in;
+    min-height: 2.2in;
+    overflow: hidden;
+  }
+
+  .aag-title {
+    font-size: 9px;
+    font-weight: bold;
+    color: #412C5D;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 10px;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+  }
+
+  .map-bg {
+    position: absolute;
+    top: 0.3in;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url('slide28-img0.png');
+    background-size: contain;
+    background-position: center;
+    background-repeat: no-repeat;
+    opacity: 1;
+    filter: contrast(2.5) brightness(0.85);
+  }
+
+  .aag-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 8px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .aag-grid-row2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    position: relative;
+    z-index: 1;
+    margin-top: 6px;
+  }
+
+  .aag-stat {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .aag-circle {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 4px auto;
+  }
+
+  .aag-circle.navy-bg { background: #232F3E; }
+  .aag-circle.purple-bg { background: #412C5D; }
+
+  .aag-number {
+    font-size: 16px;
+    font-weight: bold;
+    color: #FCB516;
+    line-height: 1.1;
+  }
+
+  .aag-sublabel {
+    font-size: 6.5px;
+    color: #fff;
+    text-transform: uppercase;
+    line-height: 1.2;
+    margin-top: 2px;
+  }
+
+  /* Contact Footer */
+  .contact-footer {
+  }
+
+  .contact-gold-line {
+    height: 4px;
+    background: #FCB516;
+  }
+
+  .contact-bar {
+    background: #232F3E;
+    padding: 0.2in 0.4in;
+    display: flex;
+    align-items: center;
+    gap: 0;
+  }
+
+  .contact-col-left {
+    flex: 1;
+  }
+
+  .contact-col-center {
+    flex: 0 0 auto;
+    text-align: center;
+    padding: 0 0.3in;
+    border-left: 1px solid rgba(255,255,255,0.15);
+    border-right: 1px solid rgba(255,255,255,0.15);
+  }
+
+  .contact-col-right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+
+  .contact-name {
+    font-size: 10pt;
+    font-weight: bold;
+    color: #fff;
+    margin-bottom: 1px;
+  }
+
+  .contact-title-text {
+    font-size: 8.5pt;
+    color: #FCB516;
+    font-style: italic;
+    margin-bottom: 5px;
+  }
+
+  .contact-detail {
+    font-size: 8pt;
+    color: #fff;
+    margin-bottom: 2px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .contact-icon {
+    width: 14px;
+    height: 14px;
+    border: 1.5px solid #FCB516;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  .contact-icon svg {
+    width: 8px;
+    height: 8px;
+  }
+
+  .contact-url {
+    font-size: 8pt;
+    color: #FCB516;
+    margin-top: 4px;
+  }
+
+  .footer-logo {
+    font-size: 18pt;
+    font-weight: bold;
+    color: #fff;
+    letter-spacing: 3px;
+    margin-bottom: 4px;
+  }
+
+  .footer-logo .paren { color: #FCB516; }
+
+  .ms-badge {
+    font-size: 8pt;
+    color: rgba(255,255,255,0.7);
+    text-align: center;
+  }
+
+  .accolades {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: flex-end;
+  }
+
+  .accolade-item {
+    font-size: 7.5pt;
+    color: #FCB516;
+    font-weight: bold;
+    background: rgba(252,181,22,0.1);
+    border: 1px solid rgba(252,181,22,0.3);
+    padding: 2px 10px;
+    border-radius: 3px;
+    white-space: nowrap;
+  }
+
+</style>
+</head>
+<body>
+
+<!-- ==================== PAGE 1 ==================== -->
+<div class="page">
+
+  <!-- Top Bar - 0.55in -->
+  <div class="hero-bar">
+    <div class="logo-text"><span class="logo-accent">((</span>CENTRIC<span class="logo-accent">))</span></div>
+    <div class="funding-badge">Microsoft Managed Partner</div>
+  </div>
+
+  <!-- Hero - 1.65in -->
+  <div class="hero-section">
+    <div class="hero-pretitle">Artificial Intelligence Practice</div>
+    <div class="hero-title">Applied Agentic<br>Integration</div>
+    <div class="hero-tagline">"Build human-agentic teams that amplify your organization<br>through the Microsoft tools your people already use."</div>
+  </div>
+
+  <!-- Why Centric - 1.65in -->
+  <div class="why-section">
+    <div class="section-title">Why Centric Consulting?</div>
+    <div class="why-grid">
+      <div class="why-card">
+        <div class="why-icon gold">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+        </div>
+        <div>
+          <div class="why-label">Highest Level of Partnership</div>
+          <div class="why-text">All six Microsoft Solutions Partner Designations. AI Inner Circle member. Microsoft Managed Partner.</div>
+        </div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon purple">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        </div>
+        <div>
+          <div class="why-label">Proven Methodology</div>
+          <div class="why-text">Built and validated through real internal implementations. Not theory - working systems.</div>
+        </div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon blue">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <div>
+          <div class="why-label">Microsoft First</div>
+          <div class="why-text">Your people stay in Word, Excel, Teams, and Outlook. Agents integrate underneath through Azure AI and Graph API.</div>
+        </div>
+      </div>
+      <div class="why-card">
+        <div class="why-icon navy">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div>
+          <div class="why-label">Cross-Service Delivery</div>
+          <div class="why-text">One engagement spans AI, Data & Analytics, Software Development, Security, and Strategy. One Centric.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Gold Divider -->
+  <div class="gold-divider"></div>
+
+  <!-- Architecture Section -->
+  <div class="pov-section-p1">
+    <div class="pov-inner">
+      <div class="pov-top-row">
+        <div class="pov-badge">The Architecture</div>
+        <span class="pov-title">Three-Layer Integration Model</span>
+      </div>
+      <div class="pov-subtitle">Your people stay in Microsoft 365. Agents work underneath. The integration layer connects them seamlessly.</div>
+      <div class="layer-stack">
+        <!-- Human Layer -->
+        <div class="layer-block">
+          <div class="layer-row human">
+            <div class="layer-icon-wrap human-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#FCB516" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="layer-label-col">
+              <div class="layer-name">Human Layer</div>
+              <div class="layer-platform">Microsoft 365</div>
+              <div class="layer-desc">Where your people already work every day</div>
+            </div>
+            <div class="layer-items">
+              <span class="layer-chip highlight">Word</span>
+              <span class="layer-chip highlight">Excel</span>
+              <span class="layer-chip highlight">Teams</span>
+              <span class="layer-chip highlight">Outlook</span>
+              <span class="layer-chip">SharePoint</span>
+              <span class="layer-chip">OneDrive</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Connector 1 -->
+        <div class="layer-connector">
+          <div class="connector-line">
+            <span class="connector-dot"></span>
+            <span class="connector-dot"></span>
+            <span class="connector-label">Graph API + MCP</span>
+            <span class="connector-dot"></span>
+            <span class="connector-dot"></span>
+          </div>
+        </div>
+
+        <!-- Integration Layer -->
+        <div class="layer-block">
+          <div class="layer-row integration">
+            <div class="layer-icon-wrap integration-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#796C8D" stroke-width="1.5"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+            </div>
+            <div class="layer-label-col">
+              <div class="layer-name">Integration Layer</div>
+              <div class="layer-platform">Handoff Protocols</div>
+              <div class="layer-desc">Secure, structured hand-offs between humans and agents</div>
+            </div>
+            <div class="layer-items">
+              <span class="layer-chip">Graph API</span>
+              <span class="layer-chip">MCP Connections</span>
+              <span class="layer-chip">File Sync</span>
+              <span class="layer-chip">Custom Protocols</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Connector 2 -->
+        <div class="layer-connector">
+          <div class="connector-line">
+            <span class="connector-dot"></span>
+            <span class="connector-dot"></span>
+            <span class="connector-label">Azure AI APIs</span>
+            <span class="connector-dot"></span>
+            <span class="connector-dot"></span>
+          </div>
+        </div>
+
+        <!-- Agent Layer -->
+        <div class="layer-block">
+          <div class="layer-row agent">
+            <div class="layer-icon-wrap agent-icon">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#ABCAE3" stroke-width="1.5"><path d="M12 2a4 4 0 0 1 4 4v2H8V6a4 4 0 0 1 4-4z"/><rect x="4" y="8" width="16" height="12" rx="2"/><circle cx="9" cy="14" r="1.5" fill="#ABCAE3"/><circle cx="15" cy="14" r="1.5" fill="#ABCAE3"/></svg>
+            </div>
+            <div class="layer-label-col">
+              <div class="layer-name">Agent Layer</div>
+              <div class="layer-platform">Specialized AI Teams</div>
+              <div class="layer-desc">Pay-per-use, not per-seat - scales with demand</div>
+            </div>
+            <div class="layer-items">
+              <span class="layer-chip">Research Agents</span>
+              <span class="layer-chip">Analysis Agents</span>
+              <span class="layer-chip">Drafting Agents</span>
+              <span class="layer-chip">Review Agents</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Stats Row -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-number">353% ROI</div>
+      <div class="stat-label">M365 Copilot for SMBs</div>
+      <div class="stat-source">Forrester 2024</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">55% Faster</div>
+      <div class="stat-label">Developer Task Completion</div>
+      <div class="stat-source">GitHub / Microsoft</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">60% Gain</div>
+      <div class="stat-label">Financial Analyst Productivity</div>
+      <div class="stat-source">McKinsey 2025 - Multi-Agent AI</div>
+    </div>
+  </div>
+
+  <!-- Page 1 Footer -->
+  <div class="page-footer">
+    <div class="footer-col-left">
+      <div class="footer-url">CentricConsulting.com</div>
+      <div class="footer-ms">Microsoft Managed Partner | All Six Solutions Partner Designations | AI Inner Circle</div>
+    </div>
+    <div class="footer-col-center">
+      <div class="footer-logo-p1"><span class="logo-accent">((</span> CENTRIC <span class="logo-accent">))</span></div>
+    </div>
+    <div class="footer-col-right">
+      <div class="footer-tagline">The Right Partner</div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ==================== PAGE 2 ==================== -->
+<div class="page">
+
+  <!-- Header - 0.5in -->
+  <div class="page2-header">
+    <div class="page2-header-title">APPLIED AGENTIC INTEGRATION</div>
+    <div class="page2-logo"><span style="color:#FCB516">((</span>CENTRIC<span style="color:#FCB516">))</span></div>
+  </div>
+
+  <!-- Engagement Phases Journey -->
+  <div class="journey-visual-section">
+    <div class="journey-inner">
+      <div class="journey-visual-title">Engagement Phases</div>
+      <div class="journey-visual-subtitle">From discovery to production in weeks, not months</div>
+      <div class="journey-flow">
+        <div class="journey-step">
+          <div class="journey-step-num">Phase 1</div>
+          <div class="journey-step-icon j-gold">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FCB516" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/><path d="M11 8v6M8 11h6"/></svg>
+          </div>
+          <div class="journey-step-name">Blueprint</div>
+          <div class="journey-step-sub">Assess workflows, identify high-value human-agent handoff points</div>
+        </div>
+        <div class="journey-connector">></div>
+        <div class="journey-step">
+          <div class="journey-step-num">Phase 2</div>
+          <div class="journey-step-icon j-purple">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#796C8D" stroke-width="1.5"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          </div>
+          <div class="journey-step-name">Design</div>
+          <div class="journey-step-sub">Design agent teams, integration layer, and security model</div>
+        </div>
+        <div class="journey-connector">></div>
+        <div class="journey-step">
+          <div class="journey-step-num">Phase 3</div>
+          <div class="journey-step-icon j-navy">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#ABCAE3" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+          </div>
+          <div class="journey-step-name">Build</div>
+          <div class="journey-step-sub">Build and test agent teams, integrate with Microsoft 365</div>
+        </div>
+        <div class="journey-connector">></div>
+        <div class="journey-step">
+          <div class="journey-step-num">Phase 4</div>
+          <div class="journey-step-icon j-blue">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#6CA7CF" stroke-width="1.5"><path d="M18 20V10M12 20V4M6 20v-6"/></svg>
+          </div>
+          <div class="journey-step-name">Operate & Improve</div>
+          <div class="journey-step-sub">Monitor, optimize, expand across the organization</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- What You Get -->
+  <div class="deliverables-section">
+    <div class="deliverables-title-row">
+      <div class="deliverables-title">What You Get</div>
+    </div>
+    <div class="deliverables-grid">
+      <div class="deliverable-card">
+        <div class="deliverable-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FCB516" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+        </div>
+        <div class="deliverable-card-title">Workflow Assessment</div>
+        <div class="deliverable-card-text">Identify highest-value automation opportunities across your organization</div>
+      </div>
+      <div class="deliverable-card">
+        <div class="deliverable-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FCB516" stroke-width="1.5"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+        </div>
+        <div class="deliverable-card-title">Team Architecture</div>
+        <div class="deliverable-card-text">Custom-designed human-agentic team structure for your workflows</div>
+      </div>
+      <div class="deliverable-card">
+        <div class="deliverable-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FCB516" stroke-width="1.5"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
+        </div>
+        <div class="deliverable-card-title">Working Agent Teams</div>
+        <div class="deliverable-card-text">Built and integrated with your Microsoft 365 environment</div>
+      </div>
+      <div class="deliverable-card">
+        <div class="deliverable-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FCB516" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><path d="M16 13H8M16 17H8M10 9H8"/></svg>
+        </div>
+        <div class="deliverable-card-title">Scale Roadmap</div>
+        <div class="deliverable-card-text">From pilot to enterprise-wide deployment with clear milestones</div>
+      </div>
+      <div class="deliverable-card">
+        <div class="deliverable-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FCB516" stroke-width="1.5"><path d="M12 1v22M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+        </div>
+        <div class="deliverable-card-title">Cost Model</div>
+        <div class="deliverable-card-text">API-based vs. per-seat licensing comparison with projected savings</div>
+      </div>
+      <div class="deliverable-card">
+        <div class="deliverable-icon">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#FCB516" stroke-width="1.5"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="deliverable-card-title">Change Management</div>
+        <div class="deliverable-card-text">Adoption plan for human-agent collaboration across teams</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- About + At-A-Glance -->
+  <div class="about-section">
+    <div class="about-grid">
+      <div>
+        <div class="about-label">About Centric Consulting</div>
+        <div class="about-text">
+          Centric Consulting is an international management consulting firm with unmatched expertise in business transformation, technology implementation, and adoption. Founded in 1999, Centric has grown to 1,400+ employees and 14 locations across the country and India.<br><br>
+          <strong>Copilot for individual productivity, agentic platforms for coordinated team workflows, Microsoft 365 as the human interface for both. Centric delivers all three.</strong>
+        </div>
+      </div>
+      <div class="at-a-glance">
+        <div class="aag-title">Centric Consulting At-A-Glance</div>
+        <div class="map-bg"></div>
+        <div class="aag-grid">
+          <div class="aag-stat">
+            <div class="aag-circle navy-bg">
+              <div class="aag-number">27</div>
+              <div class="aag-sublabel">Years in<br>Business</div>
+            </div>
+          </div>
+          <div class="aag-stat">
+            <div class="aag-circle purple-bg">
+              <div class="aag-number">1,400+</div>
+              <div class="aag-sublabel">Consultants</div>
+            </div>
+          </div>
+          <div class="aag-stat">
+            <div class="aag-circle navy-bg">
+              <div class="aag-number">14</div>
+              <div class="aag-sublabel">U.S.<br>Locations</div>
+            </div>
+          </div>
+        </div>
+        <div class="aag-grid-row2">
+          <div class="aag-stat">
+            <div class="aag-circle navy-bg">
+              <div class="aag-number">1-100+</div>
+              <div class="aag-sublabel">Project<br>Team Sizes</div>
+            </div>
+          </div>
+          <div class="aag-stat">
+            <div class="aag-circle purple-bg">
+              <div class="aag-number">1</div>
+              <div class="aag-sublabel">Offshore<br>Location</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Contact Footer -->
+  <div class="contact-footer">
+    <div class="contact-gold-line"></div>
+    <div class="contact-bar">
+
+      <!-- Left: Contact Info -->
+      <div class="contact-col-left">
+        <div class="contact-name">[CONTACT NAME]</div>
+        <div class="contact-title-text">[Title / Practice Area]</div>
+        <div class="contact-detail">
+          <span class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#FCB516" stroke-width="2.5"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07 19.5 19.5 0 01-6-6A19.79 19.79 0 012.12 4.18 2 2 0 014.11 2h3a2 2 0 012 1.72c.13.81.36 1.6.68 2.34a2 2 0 01-.45 2.11L8.09 9.91a16 16 0 006 6l1.74-1.25a2 2 0 012.11-.45c.74.32 1.53.55 2.34.68A2 2 0 0122 16.92z"/></svg>
+          </span>
+          [Phone Number]
+        </div>
+        <div class="contact-detail">
+          <span class="contact-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="#FCB516" stroke-width="2.5"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><path d="M22 6l-10 7L2 6"/></svg>
+          </span>
+          [email@centricconsulting.com]
+        </div>
+        <div class="contact-url">Visit CentricConsulting.com to learn more.</div>
+      </div>
+
+      <!-- Center: Logo & Badge -->
+      <div class="contact-col-center">
+        <div class="footer-logo"><span class="paren">((</span> CENTRIC <span class="paren">))</span></div>
+        <div class="ms-badge">Microsoft Managed Partner</div>
+      </div>
+
+      <!-- Right: Accolades -->
+      <div class="contact-col-right">
+        <div class="accolades">
+          <span class="accolade-item">All 6 Solutions Partner Designations</span>
+          <span class="accolade-item">AI Inner Circle Member</span>
+          <span class="accolade-item">Fabric Featured Partner</span>
+          <span class="accolade-item">15+ Year Microsoft Partner</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
