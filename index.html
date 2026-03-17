@@ -26,31 +26,8 @@
     font-family: Arial, sans-serif;
     background: var(--navy);
     color: var(--charcoal);
-  }
-
-  /* ====== HIDDEN RADIO STATE ====== */
-  /* Screen-reader safe hiding - do NOT use display:none */
-  input.sr {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    clip: rect(0, 0, 0, 0);
-    white-space: nowrap;
-    border: 0;
-    padding: 0;
-    margin: -1px;
-  }
-
-  /* ====== LAYOUT ====== */
-  .app {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    height: 100dvh;
-    max-width: 480px;
-    margin: 0 auto;
-    background: #FFFFFF;
+    -webkit-user-select: none;
+    user-select: none;
   }
 
   /* ====== HEADER ====== */
@@ -58,7 +35,6 @@
     background: var(--navy);
     padding: 16px 20px 12px;
     text-align: center;
-    flex-shrink: 0;
   }
 
   .header-logo { height: 30px; width: auto; margin-bottom: 6px; }
@@ -71,11 +47,7 @@
     font-weight: 700;
   }
 
-  .header-accent {
-    height: 3px;
-    background: var(--gold);
-    flex-shrink: 0;
-  }
+  .header-accent { height: 3px; background: var(--gold); }
 
   /* ====== TABS ====== */
   .tabs {
@@ -94,34 +66,51 @@
     color: var(--med-gray);
     cursor: pointer;
     border-bottom: 3px solid transparent;
-    line-height: 1.3;
     transition: color 0.2s, border-color 0.2s, background 0.2s;
-    -webkit-user-select: none;
-    user-select: none;
+    line-height: 1.3;
   }
 
-  /* ====== SLIDES ====== */
-  .slides {
-    flex: 1 1 0%;
-    min-height: 0;
-    position: relative;
+  .tab.active {
+    color: var(--navy);
     background: #FFFFFF;
   }
 
+  .tab[data-index="0"].active { border-bottom-color: var(--gold); }
+  .tab[data-index="1"].active { border-bottom-color: var(--steel-blue); }
+  .tab[data-index="2"].active { border-bottom-color: var(--purple); }
+  .tab[data-index="3"].active { border-bottom-color: var(--green); }
+
+  /* ====== SWIPE CONTAINER ====== */
+  .swipe-container {
+    flex: 1 1 0%;
+    min-height: 0;
+    overflow: hidden;
+    position: relative;
+    background: #FFFFFF;
+    /* CRITICAL: none = browser hands ALL touch to JS */
+    touch-action: none;
+  }
+
+  .swipe-track {
+    display: flex;
+    height: 100%;
+    will-change: transform;
+  }
+
+  .swipe-track.animating {
+    transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+
+  /* ====== SLIDE ====== */
   .slide {
-    display: none;
+    flex: 0 0 100%;
+    width: 100%;
+    height: 100%;
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 20px;
-    width: 100%;
-    height: 100%;
-    animation: fadeIn 0.15s ease-in;
-  }
-
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
+    padding: 20px 20px;
   }
 
   .slide-icon {
@@ -135,10 +124,10 @@
     font-size: 22px;
   }
 
-  .slide-0 .slide-icon { background: rgba(252, 181, 22, 0.12); }
-  .slide-1 .slide-icon { background: rgba(31, 93, 130, 0.12); }
-  .slide-2 .slide-icon { background: rgba(65, 44, 93, 0.12); }
-  .slide-3 .slide-icon { background: rgba(48, 182, 118, 0.12); }
+  .slide[data-index="0"] .slide-icon { background: rgba(252, 181, 22, 0.12); }
+  .slide[data-index="1"] .slide-icon { background: rgba(31, 93, 130, 0.12); }
+  .slide[data-index="2"] .slide-icon { background: rgba(65, 44, 93, 0.12); }
+  .slide[data-index="3"] .slide-icon { background: rgba(48, 182, 118, 0.12); }
 
   .slide-title {
     font-size: 20px;
@@ -171,10 +160,10 @@
     overflow: hidden;
   }
 
-  .slide-0 .qr-frame { border-color: rgba(252, 181, 22, 0.4); }
-  .slide-1 .qr-frame { border-color: rgba(31, 93, 130, 0.4); }
-  .slide-2 .qr-frame { border-color: rgba(65, 44, 93, 0.4); }
-  .slide-3 .qr-frame { border-color: rgba(48, 182, 118, 0.4); }
+  .slide[data-index="0"] .qr-frame { border-color: rgba(252, 181, 22, 0.4); }
+  .slide[data-index="1"] .qr-frame { border-color: rgba(31, 93, 130, 0.4); }
+  .slide[data-index="2"] .qr-frame { border-color: rgba(65, 44, 93, 0.4); }
+  .slide[data-index="3"] .qr-frame { border-color: rgba(48, 182, 118, 0.4); }
 
   .qr-placeholder {
     width: 170px;
@@ -224,9 +213,14 @@
     height: 8px;
     border-radius: 50%;
     background: var(--light-gray);
-    cursor: pointer;
     transition: all 0.3s ease;
   }
+
+  .dot.active { width: 24px; border-radius: 4px; }
+  .dot[data-index="0"].active { background: var(--gold); }
+  .dot[data-index="1"].active { background: var(--steel-blue); }
+  .dot[data-index="2"].active { background: var(--purple); }
+  .dot[data-index="3"].active { background: var(--green); }
 
   /* ====== FOOTER ====== */
   .footer {
@@ -236,11 +230,7 @@
     flex-shrink: 0;
   }
 
-  .footer-text {
-    font-size: 10px;
-    color: var(--med-gray);
-    letter-spacing: 0.5px;
-  }
+  .footer-text { font-size: 10px; color: var(--med-gray); letter-spacing: 0.5px; }
 
   .footer-gold {
     height: 2px;
@@ -250,57 +240,19 @@
     border-radius: 1px;
   }
 
-  /* ============================================
-     RADIO-DRIVEN STATE (CSS-only navigation)
-     ============================================
-     When a radio is :checked, its general sibling
-     selector (~) activates the matching slide,
-     tab highlight, and dot indicator.
-     ============================================ */
-
-  /* Show active slide */
-  #tab0:checked ~ .app .slides .slide-0 { display: flex; }
-  #tab1:checked ~ .app .slides .slide-1 { display: flex; }
-  #tab2:checked ~ .app .slides .slide-2 { display: flex; }
-  #tab3:checked ~ .app .slides .slide-3 { display: flex; }
-
-  /* Active tab text color + background */
-  #tab0:checked ~ .app .tabs .tab-0,
-  #tab1:checked ~ .app .tabs .tab-1,
-  #tab2:checked ~ .app .tabs .tab-2,
-  #tab3:checked ~ .app .tabs .tab-3 {
-    color: var(--navy);
+  /* ====== LAYOUT ====== */
+  .app {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    height: 100dvh; /* dynamic viewport height for mobile browsers */
+    max-width: 480px;
+    margin: 0 auto;
     background: #FFFFFF;
   }
-
-  /* Active tab underline color */
-  #tab0:checked ~ .app .tabs .tab-0 { border-bottom-color: var(--gold); }
-  #tab1:checked ~ .app .tabs .tab-1 { border-bottom-color: var(--steel-blue); }
-  #tab2:checked ~ .app .tabs .tab-2 { border-bottom-color: var(--purple); }
-  #tab3:checked ~ .app .tabs .tab-3 { border-bottom-color: var(--green); }
-
-  /* Active dot indicator */
-  #tab0:checked ~ .app .dots .dot-0,
-  #tab1:checked ~ .app .dots .dot-1,
-  #tab2:checked ~ .app .dots .dot-2,
-  #tab3:checked ~ .app .dots .dot-3 {
-    width: 24px;
-    border-radius: 4px;
-  }
-
-  #tab0:checked ~ .app .dots .dot-0 { background: var(--gold); }
-  #tab1:checked ~ .app .dots .dot-1 { background: var(--steel-blue); }
-  #tab2:checked ~ .app .dots .dot-2 { background: var(--purple); }
-  #tab3:checked ~ .app .dots .dot-3 { background: var(--green); }
 </style>
 </head>
 <body>
-
-<!-- Radio buttons: the CSS-only state machine. Labels click these. -->
-<input type="radio" name="slide" id="tab0" checked class="sr">
-<input type="radio" name="slide" id="tab1" class="sr">
-<input type="radio" name="slide" id="tab2" class="sr">
-<input type="radio" name="slide" id="tab3" class="sr">
 
 <div class="app">
   <div class="header">
@@ -309,77 +261,76 @@
   </div>
   <div class="header-accent"></div>
 
-  <!-- TABS: Labels that toggle radio buttons - native HTML, zero JS -->
-  <nav class="tabs">
-    <label for="tab0" class="tab tab-0">Insurance<br>Analytics</label>
-    <label for="tab1" class="tab tab-1">Fabric<br>Workshops</label>
-    <label for="tab2" class="tab tab-2">Applied Agentic<br>Integration</label>
-    <label for="tab3" class="tab tab-3">Copilot<br>Governance</label>
-  </nav>
-
-  <!-- SLIDES: Only the active one is displayed via CSS :checked -->
-  <div class="slides">
-
-    <div class="slide slide-0">
-      <div class="slide-icon">&#x1F4CA;</div>
-      <div class="slide-title">Insurance Analytics Platform</div>
-      <div class="slide-subtitle">End-to-end analytics solution built on Microsoft Fabric for insurance carriers</div>
-      <div class="qr-frame">
-        <div class="qr-placeholder">
-          <div class="qr-placeholder-icon">&#x25A3;</div>
-          <div class="qr-placeholder-text">QR Code</div>
-        </div>
-      </div>
-      <div class="slide-cta">Scan to download the<br><strong>IAP One-Pager (PDF)</strong></div>
-    </div>
-
-    <div class="slide slide-1">
-      <div class="slide-icon">&#x1F527;</div>
-      <div class="slide-title">Microsoft Fabric Workshops</div>
-      <div class="slide-subtitle">From ideation to production - 4 Microsoft-funded workshop offerings</div>
-      <div class="qr-frame">
-        <div class="qr-placeholder">
-          <div class="qr-placeholder-icon">&#x25A3;</div>
-          <div class="qr-placeholder-text">QR Code</div>
-        </div>
-      </div>
-      <div class="slide-cta">Scan to download the<br><strong>Fabric Workshops One-Pager (PDF)</strong></div>
-    </div>
-
-    <div class="slide slide-2">
-      <div class="slide-icon">&#x1F916;</div>
-      <div class="slide-title">Applied Agentic Integration</div>
-      <div class="slide-subtitle">AI agents that work alongside your team - strategy through production deployment</div>
-      <div class="qr-frame">
-        <div class="qr-placeholder">
-          <div class="qr-placeholder-icon">&#x25A3;</div>
-          <div class="qr-placeholder-text">QR Code</div>
-        </div>
-      </div>
-      <div class="slide-cta">Scan to download the<br><strong>Applied Agentic Integration One-Pager (PDF)</strong></div>
-    </div>
-
-    <div class="slide slide-3">
-      <div class="slide-icon">&#x1F6E1;</div>
-      <div class="slide-title">Copilot Governance</div>
-      <div class="slide-subtitle">Responsible AI adoption with governance frameworks built for enterprise scale</div>
-      <div class="qr-frame">
-        <div class="qr-placeholder">
-          <div class="qr-placeholder-icon">&#x25A3;</div>
-          <div class="qr-placeholder-text">QR Code</div>
-        </div>
-      </div>
-      <div class="slide-cta">Scan to download the<br><strong>Copilot Governance One-Pager (PDF)</strong></div>
-    </div>
-
+  <div class="tabs" id="tabs">
+    <div class="tab active" data-index="0">Insurance<br>Analytics</div>
+    <div class="tab" data-index="1">Fabric<br>Workshops</div>
+    <div class="tab" data-index="2">Applied Agentic<br>Integration</div>
+    <div class="tab" data-index="3">Copilot<br>Governance</div>
   </div>
 
-  <!-- DOTS: Also labels - clicking them navigates too -->
-  <div class="dots">
-    <label for="tab0" class="dot dot-0"></label>
-    <label for="tab1" class="dot dot-1"></label>
-    <label for="tab2" class="dot dot-2"></label>
-    <label for="tab3" class="dot dot-3"></label>
+  <div class="swipe-container" id="swipeContainer">
+    <div class="swipe-track" id="swipeTrack">
+
+      <div class="slide" data-index="0">
+        <div class="slide-icon">&#x1F4CA;</div>
+        <div class="slide-title">Insurance Analytics Platform</div>
+        <div class="slide-subtitle">End-to-end analytics solution built on Microsoft Fabric for insurance carriers</div>
+        <div class="qr-frame">
+          <div class="qr-placeholder" id="qr-0">
+            <div class="qr-placeholder-icon">&#x25A3;</div>
+            <div class="qr-placeholder-text">QR Code</div>
+          </div>
+        </div>
+        <div class="slide-cta">Scan to download the<br><strong>IAP One-Pager (PDF)</strong></div>
+      </div>
+
+      <div class="slide" data-index="1">
+        <div class="slide-icon">&#x1F527;</div>
+        <div class="slide-title">Microsoft Fabric Workshops</div>
+        <div class="slide-subtitle">From ideation to production - 4 Microsoft-funded workshop offerings</div>
+        <div class="qr-frame">
+          <div class="qr-placeholder" id="qr-1">
+            <div class="qr-placeholder-icon">&#x25A3;</div>
+            <div class="qr-placeholder-text">QR Code</div>
+          </div>
+        </div>
+        <div class="slide-cta">Scan to download the<br><strong>Fabric Workshops One-Pager (PDF)</strong></div>
+      </div>
+
+      <div class="slide" data-index="2">
+        <div class="slide-icon">&#x1F916;</div>
+        <div class="slide-title">Applied Agentic Integration</div>
+        <div class="slide-subtitle">AI agents that work alongside your team - strategy through production deployment</div>
+        <div class="qr-frame">
+          <div class="qr-placeholder" id="qr-2">
+            <div class="qr-placeholder-icon">&#x25A3;</div>
+            <div class="qr-placeholder-text">QR Code</div>
+          </div>
+        </div>
+        <div class="slide-cta">Scan to download the<br><strong>Applied Agentic Integration One-Pager (PDF)</strong></div>
+      </div>
+
+      <div class="slide" data-index="3">
+        <div class="slide-icon">&#x1F6E1;</div>
+        <div class="slide-title">Copilot Governance</div>
+        <div class="slide-subtitle">Responsible AI adoption with governance frameworks built for enterprise scale</div>
+        <div class="qr-frame">
+          <div class="qr-placeholder" id="qr-3">
+            <div class="qr-placeholder-icon">&#x25A3;</div>
+            <div class="qr-placeholder-text">QR Code</div>
+          </div>
+        </div>
+        <div class="slide-cta">Scan to download the<br><strong>Copilot Governance One-Pager (PDF)</strong></div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="dots" id="dots">
+    <div class="dot active" data-index="0"></div>
+    <div class="dot" data-index="1"></div>
+    <div class="dot" data-index="2"></div>
+    <div class="dot" data-index="3"></div>
   </div>
 
   <div class="footer">
@@ -388,51 +339,175 @@
   </div>
 </div>
 
-<!-- Progressive enhancement: swipe gesture support.
-     If JS is blocked, tabs and dots still work via radio buttons.
-     Swipe is a bonus when JS is available. -->
 <script>
 (function() {
-  var container = document.querySelector('.slides');
-  var radios = document.querySelectorAll('input[name="slide"]');
-  if (!container || !radios.length) return;
-
+  var track = document.getElementById('swipeTrack');
+  var container = document.getElementById('swipeContainer');
+  var tabEls = document.querySelectorAll('.tab');
+  var dotEls = document.querySelectorAll('.dot');
+  var total = 4;
+  var current = 0;
   var startX = 0;
-  var startY = 0;
-  var tracking = false;
+  var moveX = 0;
+  var dragging = false;
+  var containerW = 0;
 
-  function getCurrent() {
-    for (var i = 0; i < radios.length; i++) {
-      if (radios[i].checked) return i;
-    }
-    return 0;
+  function getWidth() {
+    containerW = container.offsetWidth;
   }
 
-  container.addEventListener('touchstart', function(e) {
-    startX = e.touches[0].clientX;
-    startY = e.touches[0].clientY;
-    tracking = true;
-  }, { passive: true });
+  function goTo(idx) {
+    if (idx < 0) idx = 0;
+    if (idx >= total) idx = total - 1;
+    current = idx;
 
-  container.addEventListener('touchend', function(e) {
-    if (!tracking) return;
-    tracking = false;
+    // Animate slide
+    track.classList.add('animating');
+    track.style.transform = 'translateX(' + (-current * 100) + '%)';
 
-    var dx = startX - e.changedTouches[0].clientX;
-    var dy = startY - e.changedTouches[0].clientY;
+    // Remove animating class after transition
+    setTimeout(function() { track.classList.remove('animating'); }, 320);
 
-    // Only count horizontal swipes (ignore vertical scrolling)
-    if (Math.abs(dx) < 50 || Math.abs(dy) > Math.abs(dx)) return;
-
-    var current = getCurrent();
-
-    if (dx > 0 && current < radios.length - 1) {
-      radios[current + 1].checked = true;
-    } else if (dx < 0 && current > 0) {
-      radios[current - 1].checked = true;
+    // Update tabs
+    for (var i = 0; i < tabEls.length; i++) {
+      if (i === current) {
+        tabEls[i].classList.add('active');
+      } else {
+        tabEls[i].classList.remove('active');
+      }
     }
-  }, { passive: true });
+
+    // Update dots
+    for (var j = 0; j < dotEls.length; j++) {
+      if (j === current) {
+        dotEls[j].classList.add('active');
+      } else {
+        dotEls[j].classList.remove('active');
+      }
+    }
+  }
+
+  // Tab clicks - using event delegation, works on both touch and mouse
+  document.getElementById('tabs').addEventListener('click', function(e) {
+    var tab = e.target.closest('.tab');
+    if (tab) {
+      var idx = parseInt(tab.getAttribute('data-index'), 10);
+      goTo(idx);
+    }
+  });
+
+  // ---- Pointer Events (unified touch + mouse) ----
+  // pointerdown/pointermove/pointerup work on ALL devices
+  // Falls back to touch/mouse listeners for older browsers
+
+  function onStart(x) {
+    getWidth();
+    startX = x;
+    moveX = x;
+    dragging = true;
+    track.classList.remove('animating');
+  }
+
+  function onMove(x) {
+    if (!dragging) return;
+    moveX = x;
+    var diff = moveX - startX;
+    var offset = (-current * containerW) + diff;
+    track.style.transform = 'translateX(' + offset + 'px)';
+  }
+
+  function onEnd() {
+    if (!dragging) return;
+    dragging = false;
+    var diff = moveX - startX;
+    var threshold = containerW * 0.15;
+
+    if (diff < -threshold && current < total - 1) {
+      goTo(current + 1);
+    } else if (diff > threshold && current > 0) {
+      goTo(current - 1);
+    } else {
+      goTo(current);
+    }
+  }
+
+  // Try Pointer Events first (best cross-platform support)
+  if (window.PointerEvent) {
+    container.addEventListener('pointerdown', function(e) {
+      // Only handle primary pointer (finger or left mouse)
+      if (!e.isPrimary) return;
+      container.setPointerCapture(e.pointerId);
+      onStart(e.clientX);
+    });
+
+    container.addEventListener('pointermove', function(e) {
+      if (!e.isPrimary || !dragging) return;
+      e.preventDefault();
+      onMove(e.clientX);
+    });
+
+    container.addEventListener('pointerup', function(e) {
+      if (!e.isPrimary) return;
+      onEnd();
+    });
+
+    container.addEventListener('pointercancel', function(e) {
+      if (!e.isPrimary) return;
+      onEnd();
+    });
+
+  } else {
+    // Fallback: Touch Events
+    container.addEventListener('touchstart', function(e) {
+      onStart(e.touches[0].clientX);
+    }, { passive: true });
+
+    container.addEventListener('touchmove', function(e) {
+      e.preventDefault();
+      onMove(e.touches[0].clientX);
+    }, { passive: false });
+
+    container.addEventListener('touchend', function() {
+      onEnd();
+    });
+
+    container.addEventListener('touchcancel', function() {
+      onEnd();
+    });
+
+    // Fallback: Mouse Events
+    container.addEventListener('mousedown', function(e) {
+      onStart(e.clientX);
+      e.preventDefault();
+    });
+
+    document.addEventListener('mousemove', function(e) {
+      if (!dragging) return;
+      onMove(e.clientX);
+      e.preventDefault();
+    });
+
+    document.addEventListener('mouseup', function() {
+      onEnd();
+    });
+  }
+
+  // Keyboard
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'ArrowLeft') goTo(current - 1);
+    if (e.key === 'ArrowRight') goTo(current + 1);
+  });
+
+  // Resize
+  window.addEventListener('resize', function() {
+    getWidth();
+    track.style.transform = 'translateX(' + (-current * 100) + '%)';
+  });
+
+  // Init
+  getWidth();
 })();
 </script>
+
 </body>
 </html>
