@@ -300,17 +300,11 @@
     line-height: 1.3;
   }
 
-  .overlay-body {
+  .overlay-pdf {
     flex: 1;
-    overflow-y: auto;
-    overflow-x: hidden;
-    -webkit-overflow-scrolling: touch;
+    width: 100%;
+    border: none;
     background: #FFFFFF;
-  }
-
-  .overlay-scaler {
-    transform-origin: top left;
-    width: 816px; /* 8.5in at 96dpi */
   }
 
   /* ====== DOTS ====== */
@@ -455,9 +449,7 @@
     </button>
     <div class="overlay-title" id="overlayTitle"></div>
   </div>
-  <div class="overlay-body" id="overlayBody">
-    <div class="overlay-scaler" id="overlayScaler"></div>
-  </div>
+  <iframe class="overlay-pdf" id="overlayPdf"></iframe>
 </div>
 
 <script>
@@ -653,56 +645,28 @@
 
   // ---- One-Pager Preview Overlay ----
   var onePagers = [
-    { file: 'iap-one-pager.html', title: 'Insurance Analytics Platform' },
-    { file: 'Microsoft-Fabric-Workshops-One-Pager.html', title: 'Microsoft Fabric Workshops' },
-    { file: 'aai-one-pager.html', title: 'Applied Agentic Integration' },
-    { file: 'copilot-governance-one-pager.html', title: 'Copilot Governance' }
+    { pdf: 'pdfs/iap.pdf', title: 'Insurance Analytics Platform' },
+    { pdf: 'pdfs/fabric.pdf', title: 'Microsoft Fabric Workshops' },
+    { pdf: 'pdfs/aai.pdf', title: 'Applied Agentic Integration' },
+    { pdf: 'pdfs/governance.pdf', title: 'Copilot Governance' }
   ];
 
   var overlay = document.getElementById('overlay');
-  var overlayBody = document.getElementById('overlayBody');
-  var overlayScaler = document.getElementById('overlayScaler');
+  var overlayPdf = document.getElementById('overlayPdf');
   var overlayTitle = document.getElementById('overlayTitle');
   var overlayBack = document.getElementById('overlayBack');
 
-  function scaleOverlay() {
-    var availW = overlayBody.offsetWidth;
-    var scale = availW / 816;
-    overlayScaler.style.transform = 'scale(' + scale + ')';
-    overlayScaler.style.width = '816px';
-  }
-
-  // Open one-pager overlay
+  // Open PDF preview overlay
   function openOnePager(idx) {
     overlayTitle.textContent = onePagers[idx].title;
+    overlayPdf.src = onePagers[idx].pdf;
     overlay.classList.add('visible');
-
-    fetch(onePagers[idx].file)
-      .then(function(r) { return r.text(); })
-      .then(function(html) {
-        // Extract just the body content and styles
-        var parser = new DOMParser();
-        var doc = parser.parseFromString(html, 'text/html');
-        var style = doc.querySelector('style');
-        var body = doc.body;
-
-        overlayScaler.innerHTML = '';
-        if (style) overlayScaler.appendChild(style.cloneNode(true));
-        overlayScaler.innerHTML += body.innerHTML;
-
-        scaleOverlay();
-        overlayBody.scrollTop = 0;
-      });
   }
-
-  window.addEventListener('resize', function() {
-    if (overlay.classList.contains('visible')) scaleOverlay();
-  });
 
   // Back button
   overlayBack.addEventListener('click', function() {
     overlay.classList.remove('visible');
-    overlayScaler.innerHTML = '';
+    overlayPdf.src = '';
   });
 })();
 </script>
