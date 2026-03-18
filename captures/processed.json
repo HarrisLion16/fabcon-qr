@@ -1,0 +1,35 @@
+[
+  {
+    "name": "Carrie Butler",
+    "company": "Centric Consulting",
+    "title": "Director - Microsoft Business Applications",
+    "phone": "8438132619",
+    "email": "hlnuss@gmail.com",
+    "notes": "Bob",
+    "photo": "2026-03-18_150104_001.jpg",
+    "timestamp": "2026-03-18T19:01:04.012Z",
+    "badge_type": "Partner Day - Gold Pass"
+  },
+  {
+    "name": "Joe Hartsel",
+    "company": "Centric Consulting",
+    "title": "National Microsoft Partnership Lead",
+    "phone": "8884526363",
+    "email": "bob@bon.com",
+    "notes": "",
+    "photo": "2026-03-18_150124_002.jpg",
+    "timestamp": "2026-03-18T19:01:24.479Z",
+    "badge_type": "Expo Only Booth Staff"
+  },
+  {
+    "name": "Katie Elsass",
+    "company": "Centric Consulting",
+    "title": "Microsoft Partnership Growth & Expansion",
+    "phone": "8436796669",
+    "email": "cat@thsjs.com",
+    "notes": "How did this happen",
+    "photo": "2026-03-18_150205_003.jpg",
+    "timestamp": "2026-03-18T19:02:05.319Z",
+    "badge_type": "Expo Only Booth Staff"
+  }
+]
