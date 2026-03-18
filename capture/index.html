@@ -152,8 +152,8 @@
   #cameraInput { display: none; }
 
   /* Views */
-  .view { display: none; flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; }
-  .view.active { display: block; }
+  .view { display: none; flex: 1; overflow-y: auto; -webkit-overflow-scrolling: touch; flex-direction: column; }
+  .view.active { display: flex; }
 
   /* Lead list */
   .lead-list { padding: 8px 20px; }
@@ -490,13 +490,16 @@
     xhr.onerror = function() { statCloud.textContent = '?'; };
     xhr.send();
 
-    // Check processed count
+    // Check processed count via API
     var xhr2 = new XMLHttpRequest();
-    xhr2.open('GET', RAW + 'captures/processed.json?t=' + Date.now());
+    xhr2.open('GET', API + '/contents/captures/processed.json');
+    xhr2.setRequestHeader('Authorization', 'Bearer ' + GITHUB_TOKEN);
     xhr2.onload = function() {
       if (xhr2.status === 200) {
         try {
-          var data = JSON.parse(xhr2.responseText);
+          var resp = JSON.parse(xhr2.responseText);
+          var content = atob(resp.content.replace(/\n/g, ''));
+          var data = JSON.parse(content);
           statProcessed.textContent = data.length;
         } catch(e) { statProcessed.textContent = '0'; }
       } else {
@@ -548,23 +551,36 @@
   function loadProcessed() {
     var list = document.getElementById('processedList');
     var empty = document.getElementById('processedEmpty');
+    var btn = document.getElementById('refreshProcessed');
+    btn.textContent = 'Loading...';
+    btn.disabled = true;
 
+    // Use GitHub API (no caching issues) to get the file content
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', RAW + 'captures/processed.json?t=' + Date.now());
+    xhr.open('GET', API + '/contents/captures/processed.json');
+    xhr.setRequestHeader('Authorization', 'Bearer ' + GITHUB_TOKEN);
     xhr.onload = function() {
+      btn.textContent = 'Refresh';
+      btn.disabled = false;
+
       if (xhr.status !== 200) {
         empty.style.display = 'block';
+        empty.textContent = 'No processed leads yet.';
         return;
       }
 
       try {
-        var data = JSON.parse(xhr.responseText);
+        var resp = JSON.parse(xhr.responseText);
+        var content = atob(resp.content.replace(/\n/g, ''));
+        var data = JSON.parse(content);
         if (!data.length) { empty.style.display = 'block'; return; }
 
         empty.style.display = 'none';
         // Clear old items
         var old = list.querySelectorAll('.processed-item');
         for (var i = 0; i < old.length; i++) old[i].remove();
+
+        statProcessed.textContent = data.length;
 
         for (var j = 0; j < data.length; j++) {
           var lead = data[j];
@@ -590,13 +606,22 @@
         }
       } catch(e) {
         empty.style.display = 'block';
+        empty.innerHTML = 'Error loading leads.<br>Pull to try again.';
       }
     };
-    xhr.onerror = function() { empty.style.display = 'block'; };
+    xhr.onerror = function() {
+      btn.textContent = 'Refresh';
+      btn.disabled = false;
+      empty.style.display = 'block';
+    };
     xhr.send();
   }
 
-  document.getElementById('refreshProcessed').addEventListener('click', loadProcessed);
+  document.getElementById('refreshProcessed').addEventListener('click', function(e) {
+    e.preventDefault();
+    e.stopPropagation();
+    loadProcessed();
+  });
 
   // --- IMAGE PROCESSING ---
   function processImage(file, callback) {
