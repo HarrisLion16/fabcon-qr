@@ -174,5 +174,115 @@
     "photo": "2026-03-18_175148_006.jpg",
     "timestamp": "2026-03-18T21:51:48.355Z",
     "badge_type": "Gold Pass"
+  },
+  {
+    "name": "Derek Tietze",
+    "company": "Endsight",
+    "title": "API Specialist",
+    "phone": "",
+    "email": "dtietze@endsight.net",
+    "notes": "",
+    "photo": "2026-03-19_092839_013.jpg",
+    "timestamp": "2026-03-19T13:28:39.858Z",
+    "badge_type": "Diamond Pass"
+  },
+  {
+    "name": "Luke Cull",
+    "company": "Hoshizaki America",
+    "title": "Data Analyst - Manufacturing",
+    "phone": "",
+    "email": "lcull@hoshizaki.com",
+    "notes": "",
+    "photo": "2026-03-19_094156_007.jpg",
+    "timestamp": "2026-03-19T13:41:56.722Z",
+    "badge_type": "Tuesday Workshops - Platinum Pass"
+  },
+  {
+    "name": "Toan Tran",
+    "company": "LACOE",
+    "title": "Senior Server Engineer",
+    "phone": "",
+    "email": "tran_toan@lacoe.edu",
+    "notes": "",
+    "photo": "2026-03-19_094543_008.jpg",
+    "timestamp": "2026-03-19T13:45:43.013Z",
+    "badge_type": "Diamond Pass"
+  },
+  {
+    "name": "Oliver Ruecker",
+    "company": "SNHU",
+    "title": "Sr Data Platform Architect",
+    "phone": "6172726013",
+    "email": "o.ruecker@snhu.edu",
+    "notes": "Looking for Santa mod including AI, looking for a consulting partner",
+    "photo": "2026-03-19_094846_014.jpg",
+    "timestamp": "2026-03-19T13:48:46.825Z",
+    "badge_type": "Gold Pass"
+  },
+  {
+    "name": "Pio Balistoy",
+    "company": "Pythian",
+    "title": "Lead Database Consultant",
+    "phone": "",
+    "email": "",
+    "notes": "",
+    "photo": "2026-03-19_094931_009.jpg",
+    "timestamp": "2026-03-19T13:49:31.493Z",
+    "badge_type": "Microsoft Staff - MVP"
+  },
+  {
+    "name": "Jerish Augustnie",
+    "company": "Play AGS",
+    "title": "Director",
+    "phone": "",
+    "email": "jaugustine@playags.com",
+    "notes": "",
+    "photo": "2026-03-19_095053_015.jpg",
+    "timestamp": "2026-03-19T13:50:53.437Z",
+    "badge_type": "Diamond Pass"
+  },
+  {
+    "name": "Joseph Bonk",
+    "company": "Merck & Co Inc",
+    "title": "Associate Director Data Science",
+    "phone": "",
+    "email": "joseph_bonk@merck.com",
+    "notes": "",
+    "photo": "2026-03-19_095823_010.jpg",
+    "timestamp": "2026-03-19T13:58:23.305Z",
+    "badge_type": "Tuesday Workshops - Platinum Pass"
+  },
+  {
+    "name": "Gary Colantonio",
+    "company": "Merck",
+    "title": "Associate Director, Data Science",
+    "phone": "",
+    "email": "colantog@merck.com",
+    "notes": "",
+    "photo": "2026-03-19_100438_011.jpg",
+    "timestamp": "2026-03-19T14:04:38.921Z",
+    "badge_type": "Tuesday Workshops - Platinum Pass"
+  },
+  {
+    "name": "Kenny Sumner",
+    "company": "Midland Credit Company",
+    "title": "Data Architect",
+    "phone": "",
+    "email": "",
+    "notes": "",
+    "photo": "2026-03-19_101033_012.jpg",
+    "timestamp": "2026-03-19T14:10:33.294Z",
+    "badge_type": "Diamond Pass"
+  },
+  {
+    "name": "Rakesh Gulati",
+    "company": "Microsoft",
+    "title": "Director - Partner Strategy, Cloud and AI Platform",
+    "phone": "",
+    "email": "",
+    "notes": "",
+    "photo": "2026-03-19_103843_013.jpg",
+    "timestamp": "2026-03-19T14:38:43.260Z",
+    "badge_type": "Partner Day - Gold Pass"
   }
 ]
