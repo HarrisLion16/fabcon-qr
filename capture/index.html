@@ -336,6 +336,15 @@
   .form-save:disabled { opacity: 0.5; }
   .form-save:active { background: #28a065; }
   .form-status { text-align: center; font-size: 12px; color: var(--med-gray); margin-top: 8px; }
+
+  .lead-item { cursor: pointer; }
+  .lead-item:active { background: var(--off-white); }
+  .lead-edit-hint { font-size: 10px; color: var(--steel-blue); margin-top: 2px; }
+
+  .processed-item { cursor: pointer; }
+  .processed-item:active { background: var(--off-white); }
+
+  #libraryInput { display: none; }
 </style>
 </head>
 <body>
@@ -370,12 +379,17 @@
       </div>
     </div>
 
-    <div class="capture-section">
-      <button class="capture-btn" id="captureBtn">
+    <div class="capture-section" style="display:flex;gap:8px;">
+      <button class="capture-btn" id="captureBtn" style="flex:1;">
         <span class="capture-icon">&#x1F4F7;</span>
-        <span>Capture Badge</span>
+        <span>Camera</span>
+      </button>
+      <button class="capture-btn" id="libraryBtn" style="flex:1;background:linear-gradient(135deg, #2778A4 0%, #1A4E6E 100%);color:#fff;box-shadow:0 4px 14px rgba(31,93,130,0.3);">
+        <span class="capture-icon">&#x1F5BC;</span>
+        <span>Library</span>
       </button>
       <input type="file" id="cameraInput" accept="image/*" capture="environment">
+      <input type="file" id="libraryInput" accept="image/*">
     </div>
 
     <div class="lead-list" id="leadList">
@@ -429,6 +443,7 @@
 
   var leads = JSON.parse(localStorage.getItem('fabcon_leads') || '[]');
   var currentImageB64 = null;
+  var editingLeadIdx = -1; // -1 = new capture, >= 0 = editing existing
 
   // DOM refs
   var captureBtn = document.getElementById('captureBtn');
@@ -532,12 +547,18 @@
       div.innerHTML =
         '<img class="lead-thumb" src="' + (lead.thumbData || '') + '" alt="Badge">' +
         '<div class="lead-info">' +
-          '<div class="lead-time">' + lead.time + '</div>' +
+          '<div class="lead-time">' + lead.time + ' <span class="lead-edit-hint">tap to edit</span></div>' +
           details +
         '</div>' +
         '<div class="lead-status ' + (lead.uploaded ? 'uploaded' : 'pending') + '">' +
           (lead.uploaded ? 'Uploaded' : 'Pending') +
         '</div>';
+
+      div.setAttribute('data-lead-idx', j);
+      div.addEventListener('click', function() {
+        var idx = parseInt(this.getAttribute('data-lead-idx'), 10);
+        openEditLead(idx);
+      });
 
       leadList.appendChild(div);
     }
@@ -573,6 +594,8 @@
         var resp = JSON.parse(xhr.responseText);
         var content = atob(resp.content.replace(/\n/g, ''));
         var data = JSON.parse(content);
+        lastProcessedData = data;
+        lastProcessedSha = resp.sha;
         if (!data.length) { empty.style.display = 'block'; return; }
 
         empty.style.display = 'none';
@@ -599,8 +622,14 @@
               (lead.company ? '<div class="processed-company">' + lead.company + '</div>' : '') +
               (lead.title ? '<div class="processed-title">' + lead.title + '</div>' : '') +
               (contact ? '<div class="processed-contact">' + contact + '</div>' : '') +
-              (lead.notes ? '<div class="processed-notes">"' + lead.notes + '"</div>' : '') +
+              '<div class="processed-notes">' + (lead.notes ? '"' + lead.notes + '"' : '<span class="lead-edit-hint">tap to add notes</span>') + '</div>' +
             '</div>';
+
+          div.setAttribute('data-processed-idx', j);
+          div.addEventListener('click', function() {
+            var idx = parseInt(this.getAttribute('data-processed-idx'), 10);
+            openEditProcessed(idx);
+          });
 
           list.appendChild(div);
         }
@@ -663,11 +692,59 @@
     xhr.send(JSON.stringify({ message: 'Lead capture: ' + filename, content: raw, branch: 'main' }));
   }
 
+  // --- EDIT LEAD (capture tab) ---
+  function openEditLead(idx) {
+    var lead = leads[idx];
+    editingLeadIdx = idx;
+    currentImageB64 = null; // no new image
+    formPreview.src = lead.thumbData || '';
+    formPhone.value = lead.phone || '';
+    formEmail.value = lead.email || '';
+    formNotes.value = lead.notes || '';
+    formStatus.textContent = '';
+    formSave.disabled = false;
+    formSave.textContent = 'Update';
+    formOverlay.classList.add('visible');
+  }
+
+  // --- EDIT PROCESSED LEAD (processed tab) ---
+  var lastProcessedData = [];
+  var lastProcessedSha = '';
+
+  function openEditProcessed(idx) {
+    var lead = lastProcessedData[idx];
+    var newNotes = prompt('Edit notes for ' + (lead.name || 'this lead') + ':', lead.notes || '');
+    if (newNotes === null) return; // cancelled
+
+    lastProcessedData[idx].notes = newNotes;
+
+    // Upload updated processed.json
+    var content = JSON.stringify(lastProcessedData, null, 2);
+    var b64 = btoa(unescape(encodeURIComponent(content)));
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('PUT', API + '/contents/captures/processed.json');
+    xhr.setRequestHeader('Authorization', 'Bearer ' + GITHUB_TOKEN);
+    xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onload = function() {
+      if (xhr.status >= 200 && xhr.status < 300) {
+        var resp = JSON.parse(xhr.responseText);
+        lastProcessedSha = resp.content.sha;
+        loadProcessed();
+      }
+    };
+    xhr.send(JSON.stringify({ message: 'Update notes for ' + (lead.name || 'lead'), content: b64, sha: lastProcessedSha, branch: 'main' }));
+  }
+
   // --- CAPTURE FLOW ---
   captureBtn.addEventListener('click', function() { cameraInput.click(); });
 
-  cameraInput.addEventListener('change', function(e) {
+  var libraryInput = document.getElementById('libraryInput');
+  document.getElementById('libraryBtn').addEventListener('click', function() { libraryInput.click(); });
+
+  function handleFileSelect(e) {
     if (!e.target.files || !e.target.files[0]) return;
+    editingLeadIdx = -1;
     processImage(e.target.files[0], function(uploadData, thumbData) {
       currentImageB64 = uploadData;
       formPreview.src = uploadData;
@@ -680,18 +757,86 @@
       formOverlay.classList.add('visible');
     });
     e.target.value = '';
-  });
+  }
+
+  cameraInput.addEventListener('change', handleFileSelect);
+  libraryInput.addEventListener('change', handleFileSelect);
 
   formCancel.addEventListener('click', function() {
     formOverlay.classList.remove('visible');
     currentImageB64 = null;
+    editingLeadIdx = -1;
   });
 
   formSave.addEventListener('click', function() {
-    if (!currentImageB64) return;
     formSave.disabled = true;
-    formSave.textContent = 'Uploading...';
     formStatus.textContent = '';
+
+    // --- EDITING EXISTING LEAD ---
+    if (editingLeadIdx >= 0) {
+      formSave.textContent = 'Updating...';
+      var lead = leads[editingLeadIdx];
+      lead.phone = formPhone.value.trim();
+      lead.email = formEmail.value.trim();
+      lead.notes = formNotes.value.trim();
+
+      // Re-upload the metadata JSON if it was previously uploaded
+      if (lead.uploaded && lead.id) {
+        var meta = {
+          timestamp: lead.timestamp,
+          phone: lead.phone,
+          email: lead.email,
+          notes: lead.notes,
+          photo: lead.id + '.jpg'
+        };
+        // Need to get the SHA of the existing json file first
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', API + '/contents/captures/' + lead.id + '.json');
+        xhr.setRequestHeader('Authorization', 'Bearer ' + GITHUB_TOKEN);
+        xhr.onerror = function() {
+          saveLeads();
+          renderLeads();
+          formStatus.textContent = 'Network error - saved locally';
+          formSave.disabled = false;
+          formSave.textContent = 'Update';
+          editingLeadIdx = -1;
+          setTimeout(function() { formOverlay.classList.remove('visible'); }, 1500);
+        };
+        xhr.onload = function() {
+          var metaB64 = btoa(JSON.stringify(meta, null, 2));
+          var body = { message: 'Update notes: ' + lead.id, content: metaB64, branch: 'main' };
+          if (xhr.status === 200) {
+            body.sha = JSON.parse(xhr.responseText).sha;
+          }
+          var xhr2 = new XMLHttpRequest();
+          xhr2.open('PUT', API + '/contents/captures/' + lead.id + '.json');
+          xhr2.setRequestHeader('Authorization', 'Bearer ' + GITHUB_TOKEN);
+          xhr2.setRequestHeader('Content-Type', 'application/json');
+          xhr2.onload = function() {
+            saveLeads();
+            renderLeads();
+            formStatus.textContent = 'Updated!';
+            formSave.textContent = 'Done!';
+            editingLeadIdx = -1;
+            setTimeout(function() { formOverlay.classList.remove('visible'); }, 800);
+          };
+          xhr2.send(JSON.stringify(body));
+        };
+        xhr.send();
+      } else {
+        saveLeads();
+        renderLeads();
+        formStatus.textContent = 'Updated locally';
+        formSave.textContent = 'Done!';
+        editingLeadIdx = -1;
+        setTimeout(function() { formOverlay.classList.remove('visible'); }, 800);
+      }
+      return;
+    }
+
+    // --- NEW CAPTURE ---
+    if (!currentImageB64) return;
+    formSave.textContent = 'Uploading...';
 
     var now = new Date();
     var dateStr = now.toISOString().split('T')[0];
