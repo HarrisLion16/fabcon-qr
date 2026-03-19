@@ -86,5 +86,93 @@
     "photo": "2026-03-18_161103_009.jpg",
     "timestamp": "2026-03-18T20:11:03.914Z",
     "badge_type": "Diamond Pass"
+  },
+  {
+    "name": "Trey Bayne",
+    "company": "Blue Mantis",
+    "title": "Sr Solution Architect",
+    "phone": "",
+    "email": "trey.bayne@bluemantis.com",
+    "notes": "",
+    "photo": "2026-03-18_162643_010.jpg",
+    "timestamp": "2026-03-18T20:26:43.159Z",
+    "badge_type": "Partner Day - Gold Pass"
+  },
+  {
+    "name": "Oliver Dreier",
+    "company": "Zebra BI",
+    "title": "Partner Manager",
+    "phone": "",
+    "email": "oliver.dreier@zebrabi.com",
+    "notes": "",
+    "photo": "2026-03-18_165331_011.jpg",
+    "timestamp": "2026-03-18T20:53:31.007Z",
+    "badge_type": "Expo Only Booth Staff"
+  },
+  {
+    "name": "Swetha Gunta",
+    "company": "Sutter Health",
+    "title": "Data Platform Engineer",
+    "phone": "",
+    "email": "swetha.gunta@sutterhealth.org",
+    "notes": "",
+    "photo": "2026-03-18_171732_002.jpg",
+    "timestamp": "2026-03-18T21:17:32.113Z",
+    "badge_type": "Tuesday Workshops - Platinum Pass"
+  },
+  {
+    "name": "Abraham Melesse",
+    "company": "Bank of Canada",
+    "title": "Principal Consultant",
+    "phone": "",
+    "email": "amelesse@bankofcanada.ca",
+    "notes": "",
+    "photo": "2026-03-18_173549_012.jpg",
+    "timestamp": "2026-03-18T21:35:49.383Z",
+    "badge_type": "Diamond Pass"
+  },
+  {
+    "name": "Monisha Soundararajan",
+    "company": "Ulteig Engineers",
+    "title": "Business Analyst",
+    "phone": "",
+    "email": "",
+    "notes": "",
+    "photo": "2026-03-18_173904_003.jpg",
+    "timestamp": "2026-03-18T21:39:04.717Z",
+    "badge_type": "Gold Pass"
+  },
+  {
+    "name": "Ng Onyechie",
+    "company": "Microsoft",
+    "title": "Cloud Solution Architect",
+    "phone": "",
+    "email": "",
+    "notes": "",
+    "photo": "2026-03-18_174219_004.jpg",
+    "timestamp": "2026-03-18T21:42:19.867Z",
+    "badge_type": "Gold Pass"
+  },
+  {
+    "name": "Priya Kamath",
+    "company": "Microsoft",
+    "title": "Senior Digital Cloud Solution Architect",
+    "phone": "",
+    "email": "",
+    "notes": "",
+    "photo": "2026-03-18_174333_005.jpg",
+    "timestamp": "2026-03-18T21:43:33.315Z",
+    "badge_type": "Gold Pass"
+  },
+  {
+    "name": "Joshua Payne",
+    "company": "Northwind Technical Services",
+    "title": "Software Developer II",
+    "phone": "",
+    "email": "",
+    "notes": "",
+    "photo": "2026-03-18_175148_006.jpg",
+    "timestamp": "2026-03-18T21:51:48.355Z",
+    "badge_type": "Gold Pass"
   }
 ]
