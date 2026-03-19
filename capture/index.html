@@ -392,7 +392,7 @@
         <span>Library</span>
       </button>
       <input type="file" id="cameraInput" accept="image/*" capture="environment">
-      <input type="file" id="libraryInput" accept="image/*">
+      <input type="file" id="libraryInput" accept="image/*" capture="">
     </div>
 
     <div class="lead-list" id="leadList">
@@ -447,6 +447,7 @@
   var leads = JSON.parse(localStorage.getItem('fabcon_leads') || '[]');
   var currentImageB64 = null;
   var editingLeadIdx = -1; // -1 = new capture, >= 0 = editing existing
+  var editingProcessedIdx = -1; // -1 = not editing processed, >= 0 = editing processed lead
 
   // DOM refs
   var captureBtn = document.getElementById('captureBtn');
@@ -716,12 +717,32 @@
 
   function openEditProcessed(idx) {
     var lead = lastProcessedData[idx];
-    var newNotes = prompt('Edit notes for ' + (lead.name || 'this lead') + ':', lead.notes || '');
-    if (newNotes === null) return; // cancelled
+    editingProcessedIdx = idx;
+    editingLeadIdx = -1;
+    currentImageB64 = null;
 
-    lastProcessedData[idx].notes = newNotes;
+    // Show badge photo from GitHub
+    var photoUrl = lead.photo ? RAW + 'captures/' + lead.photo : '';
+    formPreview.src = photoUrl;
+    formPhone.value = lead.phone || '';
+    formEmail.value = lead.email || '';
+    formNotes.value = lead.notes || '';
+    formStatus.textContent = (lead.name || '') + (lead.company ? ' - ' + lead.company : '');
+    formSave.disabled = false;
+    formSave.textContent = 'Update';
+    formOverlay.classList.add('visible');
+  }
 
-    // Upload updated processed.json
+  function saveProcessedEdit() {
+    var idx = editingProcessedIdx;
+    var lead = lastProcessedData[idx];
+    lead.phone = formPhone.value.trim();
+    lead.email = formEmail.value.trim();
+    lead.notes = formNotes.value.trim();
+
+    formSave.disabled = true;
+    formSave.textContent = 'Saving...';
+
     var content = JSON.stringify(lastProcessedData, null, 2);
     var b64 = btoa(unescape(encodeURIComponent(content)));
 
@@ -729,14 +750,29 @@
     xhr.open('PUT', API + '/contents/captures/processed.json');
     xhr.setRequestHeader('Authorization', 'Bearer ' + GITHUB_TOKEN);
     xhr.setRequestHeader('Content-Type', 'application/json');
+    xhr.onerror = function() {
+      formStatus.textContent = 'Network error';
+      formSave.disabled = false;
+      formSave.textContent = 'Update';
+    };
     xhr.onload = function() {
       if (xhr.status >= 200 && xhr.status < 300) {
         var resp = JSON.parse(xhr.responseText);
         lastProcessedSha = resp.content.sha;
-        loadProcessed();
+        formStatus.textContent = 'Updated!';
+        formSave.textContent = 'Done!';
+        editingProcessedIdx = -1;
+        setTimeout(function() {
+          formOverlay.classList.remove('visible');
+          loadProcessed();
+        }, 800);
+      } else {
+        formStatus.textContent = 'Save failed - try again';
+        formSave.disabled = false;
+        formSave.textContent = 'Update';
       }
     };
-    xhr.send(JSON.stringify({ message: 'Update notes for ' + (lead.name || 'lead'), content: b64, sha: lastProcessedSha, branch: 'main' }));
+    xhr.send(JSON.stringify({ message: 'Update ' + (lead.name || 'lead'), content: b64, sha: lastProcessedSha, branch: 'main' }));
   }
 
   // --- CAPTURE FLOW ---
@@ -769,11 +805,18 @@
     formOverlay.classList.remove('visible');
     currentImageB64 = null;
     editingLeadIdx = -1;
+    editingProcessedIdx = -1;
   });
 
   formSave.addEventListener('click', function() {
     formSave.disabled = true;
     formStatus.textContent = '';
+
+    // --- EDITING PROCESSED LEAD ---
+    if (editingProcessedIdx >= 0) {
+      saveProcessedEdit();
+      return;
+    }
 
     // --- EDITING EXISTING LEAD ---
     if (editingLeadIdx >= 0) {
