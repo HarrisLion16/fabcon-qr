@@ -592,5 +592,38 @@
     "photo": "2026-03-20_095319_027.jpg",
     "timestamp": "2026-03-20T13:53:19.512Z",
     "badge_type": "Gold Pass"
+  },
+  {
+    "name": "Mary-Lavinnie Sanchez",
+    "company": "Kissimmee Utility Authority",
+    "title": "Business Programmer/Analyst",
+    "phone": "",
+    "email": "",
+    "notes": "",
+    "photo": "2026-03-20_112400_001.jpg",
+    "timestamp": "2026-03-20T15:24:00.699Z",
+    "badge_type": "Gold Pass"
+  },
+  {
+    "name": "Aaron Hultman",
+    "company": "Michels Corporation",
+    "title": "Equipment Business Analyst",
+    "phone": "",
+    "email": "",
+    "notes": "",
+    "photo": "2026-03-20_112411_002.jpg",
+    "timestamp": "2026-03-20T15:24:11.846Z",
+    "badge_type": "Gold Pass"
+  },
+  {
+    "name": "Stuart Badger",
+    "company": "Cloudforce",
+    "title": "Cloud Solutions Engineer",
+    "phone": "",
+    "email": "",
+    "notes": "",
+    "photo": "2026-03-20_112428_003.jpg",
+    "timestamp": "2026-03-20T15:24:28.634Z",
+    "badge_type": "Gold Pass"
   }
 ]
